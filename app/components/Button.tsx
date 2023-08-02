@@ -124,8 +124,8 @@ export function Button(props: ButtonProps) {
 }
 
 const $baseViewStyle: ViewStyle = {
-  minHeight: 56,
-  borderRadius: 4,
+  minHeight: 40,
+  borderRadius: 0,
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "row",
@@ -137,7 +137,7 @@ const $baseViewStyle: ViewStyle = {
 const $baseTextStyle: TextStyle = {
   fontSize: 16,
   lineHeight: 20,
-  fontFamily: typography.primary.medium,
+  fontFamily: typography.fonts.hezaedrus.regular,
   textAlign: "center",
   flexShrink: 1,
   flexGrow: 0,
@@ -151,7 +151,7 @@ const $viewPresets = {
   default: [
     $baseViewStyle,
     {
-      borderWidth: 1,
+      borderWidth: 0,
       borderColor: colors.palette.neutral400,
       backgroundColor: colors.palette.neutral100,
     },
