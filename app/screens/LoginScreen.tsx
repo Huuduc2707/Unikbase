@@ -10,13 +10,14 @@ import { useNavigation } from "@react-navigation/native"
 interface ISignInButton {
   icon: IconTypes
   text: string
+  navigateTo: string
 }
 
 const signInButton: ISignInButton[] = [
-  { icon: "mail", text: "Sign in with Email" },
-  { icon: "phone", text: "Sign in with Phone Number" },
-  { icon: "google", text: "Continue with Google" },
-  { icon: "facebook", text: "Continue with Facebook" },
+  { icon: "mail", text: "Sign in with Email", navigateTo: "EmailSignIn" },
+  { icon: "phone", text: "Sign in with Phone Number", navigateTo: "PhoneSignIn" },
+  { icon: "google", text: "Continue with Google", navigateTo: "GoogleSignIn" },
+  { icon: "facebook", text: "Continue with Facebook", navigateTo: "FacebooSignIn" },
 ]
 
 interface LoginScreenProps extends NativeStackScreenProps<AppStackScreenProps<"Login">> {}
@@ -61,7 +62,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
         </View>
         <View style={$signInButtonContanier}>
           {signInButton.map((ele, index) => (
-            <SignInButton icon={ele.icon} text={ele.text} key={index} />
+            <SignInButton icon={ele.icon} text={ele.text} key={index} navigateTo={ele.navigateTo}/>
           ))}
         </View>
       </View>

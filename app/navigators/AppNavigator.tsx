@@ -36,6 +36,7 @@ export type AppStackParamList = {
   // 🔥 Your screens go here
   Login: undefined
 	Register: undefined
+	EmailSignIn: undefined
 	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -62,6 +63,7 @@ const AppStack = observer(function AppStack() {
       {/** 🔥 Your screens go here */}
       <Stack.Screen name="Login" component={Screens.LoginScreen} />
 			<Stack.Screen name="Register" component={Screens.RegisterScreen} />
+			<Stack.Screen name="EmailSignIn" component={Screens.EmailSignInScreen} />
 			{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )
