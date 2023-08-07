@@ -1,7 +1,6 @@
 import * as React from "react"
 import { ImageStyle, StyleProp, TextStyle, ViewStyle, TouchableOpacity } from "react-native"
 import { observer } from "mobx-react-lite"
-import { typography } from "app/theme"
 import { Text } from "app/components/Text"
 import { IconTypes, Icon } from "./Icon"
 
@@ -40,7 +39,6 @@ const $container: ViewStyle = {
 }
 
 const $text: TextStyle = {
-  fontFamily: typography.fonts.hezaedrus.regular,
   fontSize: 14,
   color: 'black',
   marginLeft: 20

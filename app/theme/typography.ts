@@ -17,8 +17,7 @@ export const customFontsToLoad = {
   spaceGroteskRegular,
   spaceGroteskMedium,
   spaceGroteskSemiBold,
-  spaceGroteskBold,
-  hezaedrusRegular: require("../../assets/fonts/hinted-Hezaedrus-Regular.ttf")
+  spaceGroteskBold
 }
 
 const fonts = {
@@ -51,9 +50,6 @@ const fonts = {
   monospace: {
     // Android only font.
     normal: "monospace",
-  },
-  hezaedrus: {
-    regular: "hazaedrusRegular"
   }
 }
 
