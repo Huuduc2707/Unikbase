@@ -35,7 +35,6 @@ export type AppStackParamList = {
   Welcome: undefined
   // 🔥 Your screens go here
   Login: undefined
-	Register: undefined
 	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -57,11 +56,10 @@ const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName="Login"
     >
+      {/* <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} /> */}
       {/** 🔥 Your screens go here */}
       <Stack.Screen name="Login" component={Screens.LoginScreen} />
-			<Stack.Screen name="Register" component={Screens.RegisterScreen} />
 			{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )

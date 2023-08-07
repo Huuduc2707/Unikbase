@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from "react-native"
 import { isRTL, translate } from "../i18n"
-import { colors, spacing } from "../theme"
+import { colors, spacing, typography } from "../theme"
 import { Text, TextProps } from "./Text"
 
 export interface TextFieldAccessoryProps {
@@ -147,7 +147,6 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   const $inputStyles = [
     $inputStyle,
     disabled && { color: colors.textDim },
-    status === "error" && {color: colors.error},
     isRTL && { textAlign: "right" as TextStyle["textAlign"] },
     TextInputProps.multiline && { height: "auto" },
     $inputStyleOverride,
@@ -238,14 +237,16 @@ const $inputWrapperStyle: ViewStyle = {
   flexDirection: "row",
   alignItems: "flex-start",
   borderWidth: 1,
-  backgroundColor: 'white',
-  borderColor: '#838E91',
+  borderRadius: 4,
+  backgroundColor: colors.palette.neutral200,
+  borderColor: colors.palette.neutral400,
   overflow: "hidden",
 }
 
 const $inputStyle: TextStyle = {
   flex: 1,
   alignSelf: "stretch",
+  fontFamily: typography.primary.normal,
   color: colors.text,
   fontSize: 16,
   height: 24,
@@ -264,7 +265,7 @@ const $rightAccessoryStyle: ViewStyle = {
   marginEnd: spacing.xs,
   height: 40,
   justifyContent: "center",
-  alignItems: "center"
+  alignItems: "center",
 }
 const $leftAccessoryStyle: ViewStyle = {
   marginStart: spacing.xs,
