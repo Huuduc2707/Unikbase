@@ -7,7 +7,7 @@ import {
   TextStyle,
   ViewStyle,
 } from "react-native"
-import { colors, spacing, typography } from "../theme"
+import { colors, spacing } from "../theme"
 import { Text, TextProps } from "./Text"
 
 type Presets = keyof typeof $viewPresets
@@ -137,7 +137,6 @@ const $baseViewStyle: ViewStyle = {
 const $baseTextStyle: TextStyle = {
   fontSize: 16,
   lineHeight: 20,
-  fontFamily: typography.fonts.hezaedrus.regular,
   textAlign: "center",
   flexShrink: 1,
   flexGrow: 0,

@@ -111,7 +111,12 @@ export const iconRegistry = {
   facebook: require("../../assets/icons/facebook.png"),
   google: require("../../assets/icons/google.png"),
   phone: require("../../assets/icons/phone.png"),
-  mail: require("../../assets/icons/mail.png")
+  mail: require("../../assets/icons/mail.png"),
+  tlc: require("../../assets/icons/top-left-corner.png"),
+  trc: require("../../assets/icons/top-right-corner.png"),
+  blc: require("../../assets/icons/bottom-left-corner.png"),
+  brc: require("../../assets/icons/bottom-right-corner.png"),
+  down: require("../../assets/icons/down.png")
 }
 
 const $imageStyle: ImageStyle = {  
