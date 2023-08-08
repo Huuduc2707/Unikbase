@@ -34,7 +34,7 @@ export const PhoneVerifyAccountScreen: FC<PhoneVerifyAccountScreenProps> = obser
       setIsVisible("success")
       setTimeout(()=>{
         setIsVisible("hidden")
-        navigation.navigate("EmailVerifyAccount")
+        navigation.navigate("CompleteVerifyAccount")
       }, 10)
     }
     else{
