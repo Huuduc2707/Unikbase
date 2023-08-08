@@ -38,6 +38,7 @@ export type AppStackParamList = {
 	Register: undefined
 	EmailSignIn: undefined
 	PhoneSignIn: undefined
+	EmailVerifyAccount: undefined
 	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -59,13 +60,14 @@ const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName="Login"
+      initialRouteName="EmailVerifyAccount"
     >
       {/** 🔥 Your screens go here */}
-      <Stack.Screen name="Login" component={Screens.LoginScreen} />
+      {/* <Stack.Screen name="Login" component={Screens.LoginScreen} />
 			<Stack.Screen name="Register" component={Screens.RegisterScreen} />
 			<Stack.Screen name="EmailSignIn" component={Screens.EmailSignInScreen} />
-			<Stack.Screen name="PhoneSignIn" component={Screens.PhoneSignInScreen} />
+			<Stack.Screen name="PhoneSignIn" component={Screens.PhoneSignInScreen} /> */}
+			<Stack.Screen name="EmailVerifyAccount" component={Screens.EmailVerifyAccountScreen} />
 			{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )

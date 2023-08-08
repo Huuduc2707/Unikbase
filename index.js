@@ -6,9 +6,10 @@ import App from "./app/app.tsx"
 import React from "react"
 import { AppRegistry } from "react-native"
 import RNBootSplash from "react-native-bootsplash"
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 function IgniteApp() {
-  return <App hideSplashScreen={RNBootSplash.hide} />
+  return <RootSiblingParent><App hideSplashScreen={RNBootSplash.hide} /></RootSiblingParent>
 }
 
 AppRegistry.registerComponent("Unikbase", () => IgniteApp)
