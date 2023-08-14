@@ -1,6 +1,8 @@
+/* eslint-disable react-native/no-color-literals */
+/* eslint-disable react-native/no-inline-styles */
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, ImageStyle, TextStyle, KeyboardAvoidingView, ScrollView, Platform, TouchableOpacity } from "react-native"
+import { ViewStyle, View, ImageStyle, TextStyle, KeyboardAvoidingView, ScrollView, TouchableOpacity, StatusBar, Dimensions, Platform } from "react-native"
 import CheckBox from "expo-checkbox"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
@@ -53,32 +55,31 @@ export const RegisterScreen: FC<RegisterScreenProps> = observer(function Registe
 
   return (
     <Screen style={$root} preset="fixed">
-      <KeyboardAvoidingView behavior={ "padding" } keyboardVerticalOffset={Platform.OS==='android'? 45:0}>
+      <KeyboardAvoidingView behavior={ Platform.OS==="android"?"padding":null } keyboardVerticalOffset={Platform.OS==="android"?25:0}>
         <ScrollView>
           {/* Logo and brand name */}
           <View style={$title}>
             <Icon style={$logo} icon="unikbase"/>
             <Text style={$brandNameText} text="unikbase"/>
           </View>
-
           {/* Register form */}
           <View style={$formContainer}>
             <View style={$iconContainer}>
               <Icon style={$arrowIcon} icon="tlc"/>
-              <Icon style={$arrowIcon} icon="blc"/>
+              <Icon style={$arrowIcon} icon="trc"/>
             </View>
             <View style={$form}>
               <Text style={$formName} text="Create Account"/>
               <View style={$inputFieldContainer}>
-                <TextField status={(error==="Username")?"error":null} containerStyle={$inputField} placeholder="Username" value={username} onChangeText={(text)=>setUsername(text)}/>
+                <TextField status={(error==="Username")?"error":null} inputWrapperStyle={$inputField} placeholder="Username" value={username} onChangeText={(text)=>setUsername(text)}/>
                 <Text style={(error==="Username")?$errorText:$hideDisplay} text={(error==="Username")? "Username is already taken. Please try again.":null}/>
-                <TextField status={(error==="Email")?"error":null} containerStyle={$inputField} placeholder="Email" value={email} onChangeText={(text)=>setEmail(text)}/>
+                <TextField status={(error==="Email")?"error":null} inputWrapperStyle={$inputField} placeholder="Email" value={email} onChangeText={(text)=>setEmail(text)}/>
                 <Text style={(error==="Email")?$errorText:$hideDisplay} text={(error==="Email")? "This email already in use. Please enter another email.":null}/>
-                <TextField status={(error==="PhoneNumber")?"error":null} containerStyle={$inputField} placeholder="Phone number" value={phoneNumber} LeftAccessory={()=><PhoneCodePicker style={$phoneCodePicker} selected={phoneCode} setSelected={setPhoneCode}/>} onChangeText={(text)=>setPhoneNumber(text)}/>
+                <TextField status={(error==="PhoneNumber")?"error":null} inputWrapperStyle={$inputField} placeholder="Phone number" value={phoneNumber} LeftAccessory={()=><PhoneCodePicker style={$phoneCodePicker} selected={phoneCode} setSelected={setPhoneCode}/>} onChangeText={(text)=>setPhoneNumber(text)}/>
                 <Text style={(error==="PhoneNumber")?$errorText:$hideDisplay} text={(error==="PhoneNumber")? "This phone number is already in use. Please enter another phone number.":null}/>
-                <TextField status={(error==="Password")?"error":null} containerStyle={$inputField} placeholder="Password" secureTextEntry={isHiddenPassword} value={password} onChangeText={(text)=>setPassword(text)} RightAccessory={()=><Icon style={$viewIcon} icon={isHiddenPassword?"view":"hidden"} onPress={()=>setIsHiddenPassword(!isHiddenPassword)}/>} />
+                <TextField status={(error==="Password")?"error":null} inputWrapperStyle={$inputField} placeholder="Password" secureTextEntry={isHiddenPassword} value={password} onChangeText={(text)=>setPassword(text)} RightAccessory={()=><Icon style={[$viewIcon, error==="Password"?{tintColor:'red'}:null]} icon={isHiddenPassword?"view":"hidden"} onPress={()=>setIsHiddenPassword(!isHiddenPassword)}/>} />
                 <Text style={(error==="Password")?$errorText:$hideDisplay} text={(error==="Password")? "Kindly ensure that your password consists of at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number.":null}/>
-                <TextField status={(error==="ConfirmPassword")?"error":null} containerStyle={$inputField} placeholder="Confirm Password" secureTextEntry={isHiddenConfirmPassword} value={confirmPassword} onChangeText={(text)=>setConfirmPassword(text)} RightAccessory={()=><Icon style={$viewIcon} icon={isHiddenConfirmPassword?"view":"hidden"} onPress={()=>setIsHiddenConfirmPassword(!isHiddenConfirmPassword)}/>} />
+                <TextField status={(error==="ConfirmPassword")?"error":null} inputWrapperStyle={$inputField} placeholder="Confirm Password" secureTextEntry={isHiddenConfirmPassword} value={confirmPassword} onChangeText={(text)=>setConfirmPassword(text)}  RightAccessory={()=><Icon style={[$viewIcon, error==="ConfirmPassword"?{tintColor:'red'}:null]} icon={isHiddenConfirmPassword?"view":"hidden"} onPress={()=>setIsHiddenConfirmPassword(!isHiddenConfirmPassword)}/>} />
                 <Text style={(error==="ConfirmPassword")?$errorText:$hideDisplay} text={(error==="ConfirmPassword")? "Password fields must match.":null}/>
               </View>
               <View style={$checkboxContainer}>
@@ -94,7 +95,7 @@ export const RegisterScreen: FC<RegisterScreenProps> = observer(function Registe
               </View>
             </View>
             <View style={$iconContainer}>
-              <Icon style={$arrowIcon} icon="trc"/>
+              <Icon style={$arrowIcon} icon="blc"/>
               <Icon style={$arrowIcon} icon="brc"/>
             </View>
           </View>
@@ -106,10 +107,12 @@ export const RegisterScreen: FC<RegisterScreenProps> = observer(function Registe
 
 
 
+const {width, height, fontScale} = Dimensions.get('window')
 // Styling zone
 const $root: ViewStyle = {
   backgroundColor: "#001B26",
-  marginTop: 35,
+  marginTop: StatusBar.currentHeight,
+  alignItems: 'center'
 }
 
 
@@ -118,17 +121,17 @@ const $title: ViewStyle = {
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'flex-end',
-  marginTop: 130,
+  marginTop: height*0.15,
 }
 
 const $logo: ImageStyle = {
-  width: 65,
-  height: 65
+  width: 65 / fontScale,
+  height: 65 / fontScale
 }
 
 const $brandNameText: TextStyle = {
   color: 'white',
-  fontSize: 35,
+  fontSize: 35 / fontScale,
   fontWeight: 'normal',
   lineHeight: 35,
   letterSpacing: 0.5
@@ -138,39 +141,43 @@ const $brandNameText: TextStyle = {
 // Form section
 const $formContainer: ViewStyle = {
   backgroundColor: 'white',
-  flexDirection: 'row',
-  padding: 15,
-  marginTop: 50
+  marginTop: height*0.065,
+  height: height*0.73,
+  width: width*1,
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  paddingTop: height*0.025
 }
 
 const $iconContainer: ViewStyle = {
-  alignSelf: 'flex-start',
-  height: 500,
-  justifyContent: 'space-between'
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: width*0.82
 }
 
 const $arrowIcon: ImageStyle = {
-  width: 15,
-  height: 15
+  width: 15 / fontScale,
+  height: 15 / fontScale
 }
 
 const $form: ViewStyle = {
-  marginVertical: 10,
-  width: 330,
-  alignItems: 'center'
+  alignItems: 'center',
+  marginTop: -10
 }
 
 const $formName: TextStyle = {
-  fontSize: 19,
-  marginBottom: 25
+  fontSize: 19 / fontScale,
+  marginBottom: height*0.025
 }
 
 const $inputFieldContainer: ViewStyle = {
-  gap: 10
+  gap: height*0.013
 }
 
 const $inputField: ViewStyle = {
-  width: 320,
+  width: width*0.85,
+  height: height*0.05,
   backgroundColor: 'white',
 }
 
@@ -180,26 +187,28 @@ const $phoneCodePicker: ViewStyle = {
 }
 
 const $viewIcon: ImageStyle = {
-  marginVertical: 7.5,
-  marginRight: 10
+  marginRight: 10,
+  marginVertical: height*0.05/6.5
 }
 
 const $checkboxContainer: ViewStyle = {
-  width: 320,
+  width: width*0.85,
   flexDirection: 'row',
   alignItems: 'center',
-  marginTop: 10
+  marginTop: height*0.003
 }
 
 const $checkbox: ViewStyle = {
-  width: 28,
-  height: 28,
+  width: width*0.06,
+  height: width*0.06,
+  maxWidth: 30,
+  maxHeight: 30,
   borderWidth: 1,
   marginRight: 5
 }
 
 const $checkboxText: TextStyle = {
-  fontSize: 12
+  fontSize: 12/ fontScale
 }
 
 const $link: TextStyle = {
@@ -208,15 +217,15 @@ const $link: TextStyle = {
 }
 
 const $createAccountButton: ViewStyle = {
-  width: 320,
-  height: 40,
+  width: width*0.85,
   backgroundColor: "#F14300",
-  marginTop: 15
+  marginTop: height*0.02
 }
 
 const $createAccountText: TextStyle = {
   color: "white",
   fontWeight: "bold",
+  textAlignVertical: 'center'
 }
 
 const $buttonPressed: ViewStyle = {
@@ -225,20 +234,20 @@ const $buttonPressed: ViewStyle = {
 }
 
 const $footerContainer: ViewStyle = {
-  marginTop: 10,
+  marginTop: height*0.02,
   alignItems: 'center'
 }
 
 const $footerText: TextStyle = {
-  fontSize: 14
+  fontSize: 14 / fontScale
 }
 
 const $errorText: TextStyle = {
-  fontSize: 10,
+  fontSize: 12,
   color: 'red',
-  marginTop: -7,
-  width: 320,
-  lineHeight: 12
+  marginTop: -height*0.01,
+  width: width*0.85,
+  lineHeight: 15
 }
 
 const $hideDisplay: ViewStyle = {

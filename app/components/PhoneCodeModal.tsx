@@ -1,5 +1,5 @@
 import * as React from "react"
-import { StyleProp, TextStyle, ViewStyle, TouchableOpacity, FlatList } from "react-native"
+import { StyleProp, TextStyle, ViewStyle, TouchableOpacity, FlatList, Dimensions } from "react-native"
 import { observer } from "mobx-react-lite"
 import { Text } from "app/components/Text"
 import Modal from "react-native-modal"
@@ -45,18 +45,21 @@ export const PhoneCodeModal = observer(function PhoneCodeModal(props: PhoneCodeM
   )
 })
 
+const {fontScale} = Dimensions.get('window')
+
 const $container: ViewStyle = {
   justifyContent: 'center',
   alignSelf: 'center',
   borderWidth: 1,
   borderColor: 'black',
-  backgroundColor: 'white'
+  backgroundColor: 'white',
+  opacity: 0.9
 }
 
 const $text: TextStyle = {
-  fontSize: 15,
+  fontSize: 15 / fontScale,
   color: 'black',
-  width: 280
+  width: '85%'
 }
 
 const $flatList: ViewStyle = {

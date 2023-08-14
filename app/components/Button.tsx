@@ -1,5 +1,6 @@
 import React, { ComponentType } from "react"
 import {
+  Dimensions,
   Pressable,
   PressableProps,
   PressableStateCallbackType,
@@ -124,7 +125,7 @@ export function Button(props: ButtonProps) {
 }
 
 const $baseViewStyle: ViewStyle = {
-  minHeight: 40,
+  maxHeight: 40,
   borderRadius: 0,
   justifyContent: "center",
   alignItems: "center",
@@ -135,7 +136,7 @@ const $baseViewStyle: ViewStyle = {
 }
 
 const $baseTextStyle: TextStyle = {
-  fontSize: 16,
+  fontSize: 16 / Dimensions.get('window').fontScale,
   lineHeight: 20,
   textAlign: "center",
   flexShrink: 1,
