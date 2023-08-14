@@ -7,8 +7,14 @@ import CheckBox from "expo-checkbox"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { Screen, Text, Icon, TextField, Button, PhoneCodePicker } from "app/components"
+import Toast from "react-native-root-toast"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
+
+interface Error{
+  code: string
+  message: string
+}
 
 interface RegisterScreenProps extends NativeStackScreenProps<AppStackScreenProps<"Register">> {}
 
@@ -22,32 +28,65 @@ export const RegisterScreen: FC<RegisterScreenProps> = observer(function Registe
   const [phoneNumber, setPhoneNumber] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
-  const [error, setError] = useState("")
+  const [error, setError] = useState<Error>({code:"", message:""})
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
+
+  const errorList = [
+    {code:"Invalid username", message: "Your username is invalid."},
+    {code: "Duplicated username", message: "Username is already taken. Please try again."},
+    {code: "Invalid email", message: "Your email address is invalid."},
+    {code: "Duplicated email", message: "This email already in use. Please enter another email."},
+    {code: "Invalid phone number", message: "Your phone number is invalid."},
+    {code: "Duplicated phone number", message: "This phone number is already in use. Please enter another phone number."},
+    {code: "Invalid password", message: "Kindly ensure that your password consists of at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number."},
+    {code: "Mismatch confirm password", message: "Password fields must match."},
+    {code: "Unchecked checkbox", message: "Please read and accept our policies to continue."}
+  ]
 
   const navigation = useNavigation()
 
 
+  function checkboxHandle(){
+    setIsChecked(!isChecked)
+    if(error.code==="Unchecked checkbox") setError({code:"", message:""})
+  }
+
   function createAccount(){
+    if(!/^[A-Za-z0-9.\s]{8,30}$/.test(username)){
+      setError(errorList[0])
+      return
+    }
     if(username === "John Doe"){
-      setError("Username")
+      setError(errorList[1])
+      return
+    }
+    if(!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+      setError(errorList[2])
       return
     }
     if(email === "john.doe@gmail.com"){
-      setError("Email")
+      setError(errorList[3])
       return
     }
-    if(phoneCode.dialCode + phoneNumber === "+84818314202"){
-      setError("PhoneNumber")
+    if(!/^\d{9,11}$/.test(phoneNumber)){
+      setError(errorList[4])
+      return
+    }
+    if(phoneCode.dialCode + phoneNumber === "+841234567890"){
+      setError(errorList[5])
       return
     }
     if(!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(password)){
-      setError("Password")
+      setError(errorList[6])
       return
     }
     if(password !== confirmPassword){
-      setError("ConfirmPassword")
+      setError(errorList[7])
+      return
+    }
+    if(!isChecked){
+      setError(errorList[8])
       return
     }
     navigation.navigate("EmailVerifyAccount")
@@ -71,21 +110,24 @@ export const RegisterScreen: FC<RegisterScreenProps> = observer(function Registe
             <View style={$form}>
               <Text style={$formName} text="Create Account"/>
               <View style={$inputFieldContainer}>
-                <TextField status={(error==="Username")?"error":null} inputWrapperStyle={$inputField} placeholder="Username" value={username} onChangeText={(text)=>setUsername(text)}/>
-                <Text style={(error==="Username")?$errorText:$hideDisplay} text={(error==="Username")? "Username is already taken. Please try again.":null}/>
-                <TextField status={(error==="Email")?"error":null} inputWrapperStyle={$inputField} placeholder="Email" value={email} onChangeText={(text)=>setEmail(text)}/>
-                <Text style={(error==="Email")?$errorText:$hideDisplay} text={(error==="Email")? "This email already in use. Please enter another email.":null}/>
-                <TextField status={(error==="PhoneNumber")?"error":null} inputWrapperStyle={$inputField} placeholder="Phone number" value={phoneNumber} LeftAccessory={()=><PhoneCodePicker style={$phoneCodePicker} selected={phoneCode} setSelected={setPhoneCode}/>} onChangeText={(text)=>setPhoneNumber(text)}/>
-                <Text style={(error==="PhoneNumber")?$errorText:$hideDisplay} text={(error==="PhoneNumber")? "This phone number is already in use. Please enter another phone number.":null}/>
-                <TextField status={(error==="Password")?"error":null} inputWrapperStyle={$inputField} placeholder="Password" secureTextEntry={isHiddenPassword} value={password} onChangeText={(text)=>setPassword(text)} RightAccessory={()=><Icon style={[$viewIcon, error==="Password"?{tintColor:'red'}:null]} icon={isHiddenPassword?"view":"hidden"} onPress={()=>setIsHiddenPassword(!isHiddenPassword)}/>} />
-                <Text style={(error==="Password")?$errorText:$hideDisplay} text={(error==="Password")? "Kindly ensure that your password consists of at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number.":null}/>
-                <TextField status={(error==="ConfirmPassword")?"error":null} inputWrapperStyle={$inputField} placeholder="Confirm Password" secureTextEntry={isHiddenConfirmPassword} value={confirmPassword} onChangeText={(text)=>setConfirmPassword(text)}  RightAccessory={()=><Icon style={[$viewIcon, error==="ConfirmPassword"?{tintColor:'red'}:null]} icon={isHiddenConfirmPassword?"view":"hidden"} onPress={()=>setIsHiddenConfirmPassword(!isHiddenConfirmPassword)}/>} />
-                <Text style={(error==="ConfirmPassword")?$errorText:$hideDisplay} text={(error==="ConfirmPassword")? "Password fields must match.":null}/>
+                <TextField status={(["Invalid username", "Duplicated username"].includes(error.code))?"error":null} inputWrapperStyle={$inputField} placeholder="Username" value={username} onChangeText={(text)=>setUsername(text)}/>
+                <Text style={(["Invalid username", "Duplicated username"].includes(error.code))?$errorText:$hideDisplay} text={error.message}/>
+                <TextField status={(["Invalid email", "Duplicated email"].includes(error.code))?"error":null} inputWrapperStyle={$inputField} placeholder="Email" value={email} onChangeText={(text)=>setEmail(text)}/>
+                <Text style={(["Invalid email", "Duplicated email"].includes(error.code))?$errorText:$hideDisplay} text={error.message}/>
+                <TextField status={(["Invalid phone number", "Duplicated phone number"].includes(error.code))?"error":null} inputWrapperStyle={$inputField} placeholder="Phone number" value={phoneNumber} LeftAccessory={()=><PhoneCodePicker style={$phoneCodePicker} selected={phoneCode} setSelected={setPhoneCode}/>} onChangeText={(text)=>setPhoneNumber(text)}/>
+                <Text style={(["Invalid phone number", "Duplicated phone number"].includes(error.code))?$errorText:$hideDisplay} text={error.message}/>
+                <TextField status={error.code==="Invalid password"?"error":null} inputWrapperStyle={$inputField} placeholder="Password" secureTextEntry={isHiddenPassword} value={password} onChangeText={(text)=>setPassword(text)} RightAccessory={()=><Icon style={[$viewIcon, error.code==="Invalid password"?{tintColor:'red'}:null]} icon={isHiddenPassword?"view":"hidden"} onPress={()=>setIsHiddenPassword(!isHiddenPassword)}/>} />
+                <Text style={error.code==="Invalid password"?$errorText:$hideDisplay} text={error.message}/>
+                <TextField status={error.code==="Mismatch confirm password"?"error":null} inputWrapperStyle={$inputField} placeholder="Confirm Password" secureTextEntry={isHiddenConfirmPassword} value={confirmPassword} onChangeText={(text)=>setConfirmPassword(text)}  RightAccessory={()=><Icon style={[$viewIcon, error.code==="Mismatch confirm password"?{tintColor:'red'}:null]} icon={isHiddenConfirmPassword?"view":"hidden"} onPress={()=>setIsHiddenConfirmPassword(!isHiddenConfirmPassword)}/>} />
+                <Text style={error.code==="Mismatch confirm password"?$errorText:$hideDisplay} text={error.message}/>
               </View>
               <View style={$checkboxContainer}>
-                <CheckBox style={$checkbox} color={isChecked?'blue':'black'} value={isChecked} onValueChange={()=>setIsChecked(!isChecked)}/>
+                <CheckBox style={$checkbox} color={error.code==="Unchecked checkbox"?'red':isChecked?'blue':'black'} value={isChecked} onValueChange={checkboxHandle}/>
                 <Text style={$checkboxText}>Accept <Text style={[$checkboxText, $link]}>Privacy Policy</Text> and <Text style={[$checkboxText, $link]}>Terms and Conditions.</Text></Text>
               </View>
+              <Toast containerStyle={$toast} textStyle={$toastText} visible={error.code==="Unchecked checkbox"} position={Dimensions.get('window').height * 0.065}>
+                {error.message}
+              </Toast>
               <Button style={$createAccountButton} text="CREATE ACCOUNT" textStyle={$createAccountText} pressedStyle={$buttonPressed} onPress={createAccount}/>
               <View style={$footerContainer}>
                 <Text style={$footerText} text="Already using Unikbase?"/>
@@ -214,6 +256,16 @@ const $checkboxText: TextStyle = {
 const $link: TextStyle = {
   color: 'blue',
   textDecorationLine: 'underline'
+}
+
+const $toast: ViewStyle = {
+  width: width*0.8,
+  backgroundColor: '#F20000',
+  borderRadius: 0
+}
+
+const $toastText: TextStyle = {
+  fontSize: 16 / fontScale
 }
 
 const $createAccountButton: ViewStyle = {
