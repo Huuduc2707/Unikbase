@@ -20,12 +20,15 @@ export const EmailVerifyAccountScreen: FC<EmailVerifyAccountScreenProps> = obser
   const navigation = useNavigation()
 
   function handleInputChange(text: string, refIndex: number){
+    if(text.length > 1) return
     if(text.length === 1 && /^\d$/.test(text)){
       setCodeInput([...codeInput.slice(0, refIndex), text, ...codeInput.slice(refIndex + 1)])
       if(refIndex < inputRef.current.length - 1) inputRef.current[refIndex + 1].focus()
       return
     }
-    if(text.length === 0) setCodeInput([...codeInput.slice(0, refIndex), "", ...codeInput.slice(refIndex + 1)])
+    if(text.length === 0 ||  !/^\d$/.test(text)){
+      setCodeInput([...codeInput.slice(0, refIndex), "", ...codeInput.slice(refIndex + 1)])
+    }
   }
 
   function verifyCode(){
@@ -47,7 +50,7 @@ export const EmailVerifyAccountScreen: FC<EmailVerifyAccountScreenProps> = obser
 
   return (
     <Screen style={$root} preset="fixed">
-      <KeyboardAvoidingView behavior={Platform.OS==="android"?"padding":null} keyboardVerticalOffset={Platform.OS==="android"?25:0}>
+      <KeyboardAvoidingView behavior={Platform.OS==="android"?"padding":null}>
         <ScrollView>
           {/* Logo and brand name */}
           <View style={$title}>

@@ -23,7 +23,7 @@ export const PhoneSignInScreen: FC<PhoneSignInScreenProps> = observer(function P
   const navigation = useNavigation()
 
   function signIn(){
-    if(phoneNumber !== "0123456789" || password !== "Johndoe@123"){
+    if(!/^\d{10,11}$/.test(phoneNumber) || phoneNumber !== "0123456789" || !/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(password) || password !== "Johndoe@123"){
       setError("IncorrectInfo")
       return
     }
@@ -57,10 +57,10 @@ export const PhoneSignInScreen: FC<PhoneSignInScreenProps> = observer(function P
               <View style={$inputFieldContainer}>
                 <Text style={$inputlabel} text="Phone number"/>
                 <TextField status={(error==="IncorrectInfo")?"error":null} containerStyle={$inputField} value={phoneNumber} onChangeText={(text)=>setPhoneNumber(text)}/>
-                <Text style={(error==="IncorrectInfo")?$errorText:$hideDisplay} text={(error==="IncorrectInfo")?"Incorrect phone number or password":null}/>
+                <Text style={(error==="IncorrectInfo")?$errorText:$hideDisplay} text={(error==="IncorrectInfo")?"Incorrect phone number or password.":null}/>
                 <Text style={$inputlabel} text="Password"/>
-                <TextField status={(error==="IncorrectInfo")?"error":null} containerStyle={$inputField} secureTextEntry={isHiddenPassword} onChangeText={(text)=>setPassword(text)} RightAccessory={()=><Icon style={[$viewIcon, error==="IncorrectInfo"?{tintColor: "red"}:null]} icon={isHiddenPassword?"view":"hidden"} onPress={()=>setIsHiddenPassword(!isHiddenPassword)}/>} />
-                <Text style={(error==="IncorrectInfo")?$errorText:$hideDisplay} text={(error==="IncorrectInfo")?"Incorrect phone number or password":null}/>
+                <TextField status={(error==="IncorrectInfo")?"error":null} containerStyle={$inputField} value={password} secureTextEntry={isHiddenPassword} onChangeText={(text)=>setPassword(text)} RightAccessory={()=><Icon style={[$viewIcon, error==="IncorrectInfo"?{tintColor: "red"}:null]} icon={isHiddenPassword?"view":"hidden"} onPress={()=>setIsHiddenPassword(!isHiddenPassword)}/>} />
+                <Text style={(error==="IncorrectInfo")?$errorText:$hideDisplay} text={(error==="IncorrectInfo")?"Incorrect phone number or password.":null}/>
               </View>
               <TouchableOpacity activeOpacity={0.7} onPress={()=>navigation.navigate("ForgotPassword")}>
                 <Text style={[$forgotPasswordText, $link]} text="Forgot your password?"/>
