@@ -107,8 +107,13 @@ export const iconRegistry = {
   slack: require("../../assets/icons/slack.png"),
   view: require("../../assets/icons/view.png"),
   x: require("../../assets/icons/x.png"),
+  unikbase: require("../../assets/icons/unikbase.png"),
+  facebook: require("../../assets/icons/facebook.png"),
+  google: require("../../assets/icons/google.png"),
+  phone: require("../../assets/icons/phone.png"),
+  mail: require("../../assets/icons/mail.png")
 }
 
-const $imageStyle: ImageStyle = {
+const $imageStyle: ImageStyle = {  
   resizeMode: "contain",
 }

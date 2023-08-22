@@ -10,12 +10,15 @@ import {
   SpaceGrotesk_700Bold as spaceGroteskBold,
 } from "@expo-google-fonts/space-grotesk"
 
+
+
 export const customFontsToLoad = {
   spaceGroteskLight,
   spaceGroteskRegular,
   spaceGroteskMedium,
   spaceGroteskSemiBold,
   spaceGroteskBold,
+  hezaedrusRegular: require("../../assets/fonts/hinted-Hezaedrus-Regular.ttf")
 }
 
 const fonts = {
@@ -49,6 +52,9 @@ const fonts = {
     // Android only font.
     normal: "monospace",
   },
+  hezaedrus: {
+    regular: "hazaedrusRegular"
+  }
 }
 
 export const typography = {
