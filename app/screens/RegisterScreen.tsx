@@ -2,90 +2,85 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, ImageStyle, TextStyle, KeyboardAvoidingView, ScrollView, TouchableOpacity, StatusBar, Dimensions, Platform } from "react-native"
+import { ViewStyle, View, ImageStyle, TextStyle, KeyboardAvoidingView, ScrollView, StatusBar, Dimensions, Platform } from "react-native"
 import CheckBox from "expo-checkbox"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
-import { Screen, Text, Icon, TextField, Button, PhoneCodePicker } from "app/components"
+import { Screen, Text, Icon, TextField, Button, PhoneCodePicker, TextAndLink, PasswordInput } from "app/components"
 import Toast from "react-native-root-toast"
 import { useNavigation } from "@react-navigation/native"
+import { TxKeyPath } from "app/i18n"
+import countryCode from "../../assets/country-codes"
+import {Formik} from "formik"
 // import { useStores } from "app/models"
 
 interface Error{
   code: string
-  message: string
+  message: TxKeyPath
 }
 
 interface RegisterScreenProps extends NativeStackScreenProps<AppStackScreenProps<"Register">> {}
 
 export const RegisterScreen: FC<RegisterScreenProps> = observer(function RegisterScreen() {
-  const [isChecked, setIsChecked] = useState(false)
-  const [isHiddenPassword, setIsHiddenPassword] = useState(true)
-  const [isHiddenConfirmPassword, setIsHiddenConfirmPassword] = useState(true)
-  const [phoneCode, setPhoneCode] = useState({countryCode: "VN", dialCode:"+84"})
-  const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
-  const [phoneNumber, setPhoneNumber] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [error, setError] = useState<Error>({code:"", message:""})
+  const [phoneCode, setPhoneCode] = useState({flag: getFlag("+84"), dialCode:"+84"})
+  const [error, setError] = useState<Error>({code:"", message:null})
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
 
-  const errorList = [
-    {code:"Invalid username", message: "Your username is invalid."},
-    {code: "Duplicated username", message: "Username is already taken. Please try again."},
-    {code: "Invalid email", message: "Your email address is invalid."},
-    {code: "Duplicated email", message: "This email already in use. Please enter another email."},
-    {code: "Invalid phone number", message: "Your phone number is invalid."},
-    {code: "Duplicated phone number", message: "This phone number is already in use. Please enter another phone number."},
-    {code: "Invalid password", message: "Kindly ensure that your password consists of at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number."},
-    {code: "Mismatch confirm password", message: "Password fields must match."},
-    {code: "Unchecked checkbox", message: "Please read and accept our policies to continue."}
+  const errorList: Error[] = [
+    {code: "Invalid username", message: "common.error.invalidUsername"},
+    {code: "Duplicated username", message: "common.error.duplicatedUsername"},
+    {code: "Invalid email", message: "common.error.invalidEmail"},
+    {code: "Duplicated email", message: "common.error.duplicatedEmail"},
+    {code: "Invalid phone number", message: "common.error.invalidPhoneNumber"},
+    {code: "Duplicated phone number", message: "common.error.duplicatedPhoneNumber"},
+    {code: "Invalid password", message: "common.error.invalidPassword"},
+    {code: "Mismatch confirm password", message: "common.error.mismatchConfirmPassword"},
+    {code: "Unchecked checkbox", message: "common.error.uncheckedCheckbox"}
   ]
 
   const navigation = useNavigation()
 
-
-  function checkboxHandle(){
-    setIsChecked(!isChecked)
-    if(error.code==="Unchecked checkbox") setError({code:"", message:""})
+  function getFlag(dialCode: string){
+    for(const country of countryCode){
+      if(country.dialCode === dialCode) return country.flag
+    }
   }
 
-  function createAccount(){
-    if(!/^[A-Za-z0-9.\s]{8,30}$/.test(username)){
+  function createAccount(values){
+    if(!/^[A-Za-z0-9.\s]{8,30}$/.test(values.username)){
       setError(errorList[0])
       return
     }
-    if(username === "John Doe"){
+    if(values.username === "John Doe"){
       setError(errorList[1])
       return
     }
-    if(!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+    if(!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(values.email)){
       setError(errorList[2])
       return
     }
-    if(email === "john.doe@gmail.com"){
+    if(values.email === "john.doe@gmail.com"){
       setError(errorList[3])
       return
     }
-    if(!/^\d{9,11}$/.test(phoneNumber)){
+    if(!/^\d{9,11}$/.test(values.phoneNumber)){
       setError(errorList[4])
       return
     }
-    if(phoneCode.dialCode + phoneNumber === "+841234567890"){
+    if(phoneCode.dialCode + values.phoneNumber === "+841234567890"){
       setError(errorList[5])
       return
     }
-    if(!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(password)){
+    if(!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(values.password)){
       setError(errorList[6])
       return
     }
-    if(password !== confirmPassword){
+    if(values.password !== values.confirmPassword){
       setError(errorList[7])
       return
     }
-    if(!isChecked){
+    if(!values.isChecked){
       setError(errorList[8])
       return
     }
@@ -107,34 +102,97 @@ export const RegisterScreen: FC<RegisterScreenProps> = observer(function Registe
               <Icon style={$arrowIcon} icon="tlc"/>
               <Icon style={$arrowIcon} icon="trc"/>
             </View>
-            <View style={$form}>
-              <Text style={$formName} text="Create Account"/>
-              <View style={$inputFieldContainer}>
-                <TextField status={(["Invalid username", "Duplicated username"].includes(error.code))?"error":null} inputWrapperStyle={$inputField} placeholder="Username" value={username} onChangeText={(text)=>setUsername(text)}/>
-                <Text style={(["Invalid username", "Duplicated username"].includes(error.code))?$errorText:$hideDisplay} text={error.message}/>
-                <TextField status={(["Invalid email", "Duplicated email"].includes(error.code))?"error":null} inputWrapperStyle={$inputField} placeholder="Email" value={email} onChangeText={(text)=>setEmail(text)}/>
-                <Text style={(["Invalid email", "Duplicated email"].includes(error.code))?$errorText:$hideDisplay} text={error.message}/>
-                <TextField status={(["Invalid phone number", "Duplicated phone number"].includes(error.code))?"error":null} inputWrapperStyle={$inputField} placeholder="Phone number" value={phoneNumber} LeftAccessory={()=><PhoneCodePicker style={$phoneCodePicker} selected={phoneCode} setSelected={setPhoneCode}/>} onChangeText={(text)=>setPhoneNumber(text)}/>
-                <Text style={(["Invalid phone number", "Duplicated phone number"].includes(error.code))?$errorText:$hideDisplay} text={error.message}/>
-                <TextField status={error.code==="Invalid password"?"error":null} inputWrapperStyle={$inputField} placeholder="Password" secureTextEntry={isHiddenPassword} value={password} onChangeText={(text)=>setPassword(text)} RightAccessory={()=><Icon style={[$viewIcon, error.code==="Invalid password"?{tintColor:'red'}:null]} icon={isHiddenPassword?"view":"hidden"} onPress={()=>setIsHiddenPassword(!isHiddenPassword)}/>} />
-                <Text style={error.code==="Invalid password"?$errorText:$hideDisplay} text={error.message}/>
-                <TextField status={error.code==="Mismatch confirm password"?"error":null} inputWrapperStyle={$inputField} placeholder="Confirm Password" secureTextEntry={isHiddenConfirmPassword} value={confirmPassword} onChangeText={(text)=>setConfirmPassword(text)}  RightAccessory={()=><Icon style={[$viewIcon, error.code==="Mismatch confirm password"?{tintColor:'red'}:null]} icon={isHiddenConfirmPassword?"view":"hidden"} onPress={()=>setIsHiddenConfirmPassword(!isHiddenConfirmPassword)}/>} />
-                <Text style={error.code==="Mismatch confirm password"?$errorText:$hideDisplay} text={error.message}/>
-              </View>
-              <View style={$checkboxContainer}>
-                <CheckBox style={$checkbox} color={error.code==="Unchecked checkbox"?'red':isChecked?'blue':'black'} value={isChecked} onValueChange={checkboxHandle}/>
-                <Text style={$checkboxText}>Accept <Text style={[$checkboxText, $link]}>Privacy Policy</Text> and <Text style={[$checkboxText, $link]}>Terms and Conditions.</Text></Text>
-              </View>
-              <Toast containerStyle={$toast} textStyle={$toastText} visible={error.code==="Unchecked checkbox"} position={Dimensions.get('window').height * 0.065}>
-                {error.message}
-              </Toast>
-              <Button style={$createAccountButton} text="CREATE ACCOUNT" textStyle={$createAccountText} pressedStyle={$buttonPressed} onPress={createAccount}/>
-              <View style={$footerContainer}>
-                <Text style={$footerText} text="Already using Unikbase?"/>
-                <TouchableOpacity activeOpacity={0.7} onPress={()=>navigation.navigate("Login")}>
-                  <Text style={[$footerText, $link]} text="Sign in"/>
-                </TouchableOpacity>
-              </View>
+            <Formik
+              initialValues={{username: '', email: '', phoneNumber: '', password: '', confirmPassword: '', isChecked: false}}
+              onSubmit={(values)=>createAccount(values)}
+            >
+              {
+                ({handleChange, handleSubmit, setFieldValue, values}) => (
+                  <View style={$form}>
+                    <Text style={$formName} tx={"common.formName.createAccount"}/>
+                    <View style={$inputFieldContainer}>
+                      <TextField 
+                        status={(["Invalid username", "Duplicated username"].includes(error.code))?"error":null} 
+                        inputWrapperStyle={$inputField} 
+                        placeholderTx={"common.inputPlaceholder.username"}
+                        helperTx={(["Invalid username", "Duplicated username"].includes(error.code))? error.message: null}
+                        HelperTextProps={{style: $errorText}}
+                        value={values.username} 
+                        onChangeText={handleChange('username')} 
+                      />
+
+                      <TextField 
+                        status={(["Invalid email", "Duplicated email"].includes(error.code))?"error":null} 
+                        inputWrapperStyle={$inputField} 
+                        placeholderTx={"common.inputPlaceholder.email"}
+                        helperTx={(["Invalid email", "Duplicated email"].includes(error.code))?error.message:null}
+                        HelperTextProps={{style: $errorText}}
+                        value={values.email} 
+                        onChangeText={handleChange('email')}
+                      />
+
+                      <TextField 
+                        status={(["Invalid phone number", "Duplicated phone number"].includes(error.code))?"error":null} 
+                        inputWrapperStyle={$inputField} 
+                        placeholderTx={"common.inputPlaceholder.phoneNumber"}
+                        helperTx={(["Invalid phone number", "Duplicated phone number"].includes(error.code))?error.message:null}
+                        HelperTextProps={{style: $errorText}}
+                        value={values.phoneNumber}
+                        onChangeText={handleChange('phoneNumber')} 
+                        LeftAccessory={()=>
+                          <PhoneCodePicker 
+                            style={$phoneCodePicker} 
+                            selected={phoneCode} 
+                            setSelected={setPhoneCode}
+                          />
+                        } 
+                      />
+
+                      <PasswordInput 
+                        status={error.code==="Invalid password"?"error":null}
+                        style={$inputField} 
+                        placeholderTx={"common.inputPlaceholder.password"}
+                        helperTx={(error.code==="Invalid password")?error.message:null}
+                        helperTextProps={{style: $errorText}}
+                        value={values.password} 
+                        onChangeText={handleChange('password')}
+                      />
+
+                      <PasswordInput 
+                        status={error.code==="Mismatch confirm password"?"error":null} 
+                        style={$inputField} 
+                        placeholderTx={"common.inputPlaceholder.confirmPassword"}
+                        helperTx={(error.code==="Mismatch confirm password")?error.message:null}
+                        helperTextProps={{style: $errorText}}
+                        value={values.confirmPassword} 
+                        onChangeText={handleChange('confirmPassword')}
+                      />
+                    </View>
+                    <View style={$checkboxContainer}>
+                      <CheckBox 
+                        style={$checkbox} 
+                        color={error.code==="Unchecked checkbox"?'red':values.isChecked?'blue':'black'} 
+                        value={values.isChecked} 
+                        onValueChange={(state)=>{
+                            setFieldValue('isChecked', state);
+                            if(error.code==="Unchecked checkbox") setError({code:"", message:null})
+                          }
+                        }
+                      />
+                      <TextAndLink tx={"registerScreen.accept"} txLink={"common.textAndLink.privacyPolicies"} />
+                      <TextAndLink tx={"registerScreen.and"} txLink={"common.textAndLink.termAndCondition"} />
+                    </View> 
+                    <Toast containerStyle={$toast} visible={error.code==="Unchecked checkbox"} position={Dimensions.get('window').height * 0.065}>
+                      <Text tx={"common.error.uncheckedCheckbox"} style={$toastText}/>
+                    </Toast>
+                    <Button style={$createAccountButton} tx={"common.button.createAccount"} textStyle={$createAccountText} pressedStyle={$buttonPressed} onPress={()=>handleSubmit()}/>
+                  </View>
+                )
+              }
+            </Formik>
+            <View style={$footerContainer}>
+              <Text style={$footerText} tx={"common.textAndLink.hasAccountQuestion"}/>
+              <TextAndLink linkStyle={$footerText} txLink={"common.textAndLink.signIn"} noTrailingSpace={true} onLinkPress={()=>navigation.navigate("Login")} />
             </View>
             <View style={$iconContainer}>
               <Icon style={$arrowIcon} icon="blc"/>
@@ -152,9 +210,11 @@ export const RegisterScreen: FC<RegisterScreenProps> = observer(function Registe
 const {width, height, fontScale} = Dimensions.get('window')
 // Styling zone
 const $root: ViewStyle = {
+  flex: 1,
   backgroundColor: "#001B26",
   marginTop: StatusBar.currentHeight,
-  alignItems: 'center'
+  alignItems: 'center',
+  flexDirection: 'column'
 }
 
 
@@ -182,13 +242,14 @@ const $brandNameText: TextStyle = {
 
 // Form section
 const $formContainer: ViewStyle = {
+  flex: 1,
   backgroundColor: 'white',
   marginTop: height*0.065,
-  height: height*0.73,
   width: width*1,
   justifyContent: 'flex-start',
   alignItems: 'center',
-  paddingTop: height*0.025
+  paddingTop: height*0.025,
+  paddingBottom: height*0.06
 }
 
 const $iconContainer: ViewStyle = {
@@ -205,7 +266,7 @@ const $arrowIcon: ImageStyle = {
 
 const $form: ViewStyle = {
   alignItems: 'center',
-  marginTop: -10
+  marginTop: -10,
 }
 
 const $formName: TextStyle = {
@@ -214,7 +275,7 @@ const $formName: TextStyle = {
 }
 
 const $inputFieldContainer: ViewStyle = {
-  gap: height*0.013
+  gap: 10
 }
 
 const $inputField: ViewStyle = {
@@ -228,16 +289,11 @@ const $phoneCodePicker: ViewStyle = {
   marginLeft: 5
 }
 
-const $viewIcon: ImageStyle = {
-  marginRight: 10,
-  marginVertical: height*0.05/6.5
-}
-
 const $checkboxContainer: ViewStyle = {
   width: width*0.85,
   flexDirection: 'row',
   alignItems: 'center',
-  marginTop: height*0.003
+  marginTop: height*0.01
 }
 
 const $checkbox: ViewStyle = {
@@ -249,15 +305,6 @@ const $checkbox: ViewStyle = {
   marginRight: 5
 }
 
-const $checkboxText: TextStyle = {
-  fontSize: 12/ fontScale
-}
-
-const $link: TextStyle = {
-  color: 'blue',
-  textDecorationLine: 'underline'
-}
-
 const $toast: ViewStyle = {
   width: width*0.8,
   backgroundColor: '#F20000',
@@ -265,7 +312,8 @@ const $toast: ViewStyle = {
 }
 
 const $toastText: TextStyle = {
-  fontSize: 16 / fontScale
+  fontSize: 16 / fontScale,
+  color: 'white'
 }
 
 const $createAccountButton: ViewStyle = {
@@ -297,11 +345,6 @@ const $footerText: TextStyle = {
 const $errorText: TextStyle = {
   fontSize: 12,
   color: 'red',
-  marginTop: -height*0.01,
   width: width*0.85,
   lineHeight: 15
-}
-
-const $hideDisplay: ViewStyle = {
-  display: 'none'
 }

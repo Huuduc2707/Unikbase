@@ -1,9 +1,9 @@
 import React, { FC, useState, useRef } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, ScrollView, KeyboardAvoidingView, View, TextStyle, ImageStyle, Platform, StatusBar, Dimensions } from "react-native"
+import { ViewStyle, ScrollView, KeyboardAvoidingView, View, TextStyle, ImageStyle, Platform, StatusBar, Dimensions, TouchableOpacity, TextInput } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
-import { Screen, Text, Icon, Button, TextField } from "app/components"
+import { Screen, Text, Icon, Button, I18NStyle } from "app/components"
 import Toast from "react-native-root-toast"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
@@ -11,28 +11,20 @@ import { useNavigation } from "@react-navigation/native"
 interface PhoneVerifyAccountScreenProps extends NativeStackScreenProps<AppStackScreenProps<"PhoneVerifyAccount">> {}
 
 export const PhoneVerifyAccountScreen: FC<PhoneVerifyAccountScreenProps> = observer(function PhoneVerifyAccountScreen(this: any) {
-  const [codeInput, setCodeInput] = useState([])
+  const [codeInput, setCodeInput] = useState('')
   const [isVisible, setIsVisible] = useState("hidden")
-  const inputRef = useRef([null, null, null, null, null, null])
+  const inputRef = useRef(null)
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
 
   const navigation = useNavigation()
 
-  function handleInputChange(text: string, refIndex: number){
-    if(text.length > 1) return
-    if(text.length === 1 && /^\d$/.test(text)){
-      setCodeInput([...codeInput.slice(0, refIndex), text, ...codeInput.slice(refIndex + 1)])
-      if(refIndex < inputRef.current.length - 1) inputRef.current[refIndex + 1].focus()
-      return
-    }
-    if(text.length === 0 ||  !/^\d$/.test(text)){
-      setCodeInput([...codeInput.slice(0, refIndex), "", ...codeInput.slice(refIndex + 1)])
-    }
+  function handleInputChange(text: string){
+    if(/^[0-9]*$/.test(text)) setCodeInput(text)
   }
 
   function verifyCode(){
-    if(codeInput.join("") === "123456"){
+    if(codeInput === "123456"){
       setIsVisible("success")
       setTimeout(()=>{
         setIsVisible("hidden")
@@ -45,7 +37,10 @@ export const PhoneVerifyAccountScreen: FC<PhoneVerifyAccountScreenProps> = obser
         setIsVisible("hidden")
       }, 1000)
     }
-    
+  }
+
+  function focusInput(){
+    inputRef.current?.focus()
   }
 
   function changePhoneNumber(phoneNumber: string){
@@ -69,29 +64,61 @@ export const PhoneVerifyAccountScreen: FC<PhoneVerifyAccountScreenProps> = obser
               <Icon style={$arrowIcon} icon="trc"/>
             </View>
             <View style={$form}>
-              <Text style={$formName} text="Check your mobile for a code"/> 
-              <Text style={$informText}>We have sent a 6-character code to <Text style={[$informText, $email]}>{changePhoneNumber("+33821375400")}</Text>. The code expires shortly, so please enter it soon.</Text>
+              <Text style={$formName} tx={"common.formName.phoneNumberVerification"}/> 
+              <I18NStyle style={$informText} tx={"common.textAndLink.informPhoneNumberCodeText"} txOptions={{phoneNumber: changePhoneNumber("+33821375400")}} txPlaceholderStyle={{phoneNumber: $phoneNumber}}/>
               <View style={$inputFieldContainer}>
                 <View style={$inputFieldSection}>
-                  <TextField inputWrapperStyle={$inputField} style={$inputText} value={codeInput[0]} keyboardType={"number-pad"} ref={(ref)=>{inputRef.current[0]=ref}} onChangeText={(text)=>handleInputChange(text, 0)}/>
-                  <TextField inputWrapperStyle={$inputField} style={$inputText} value={codeInput[1]} keyboardType={"number-pad"} ref={(ref)=>{inputRef.current[1]=ref}} onChangeText={(text)=>handleInputChange(text, 1)}/>
-                  <TextField inputWrapperStyle={[$inputField, $lastInput]} style={$inputText} value={codeInput[2]} keyboardType={"number-pad"} ref={(ref)=>{inputRef.current[2]=ref}} onChangeText={(text)=>handleInputChange(text, 2)}/>
+                  {
+                    Array(3).fill(0).map((e, index)=>{
+                      const digit = codeInput[index] || ''
+                      if(index !== 2) return (
+                        <TouchableOpacity style={$inputField} activeOpacity={1} onPress={focusInput}>
+                          <Text style={$inputText}>{digit}</Text>
+                        </TouchableOpacity>
+                      )
+                      else return (
+                        <TouchableOpacity style={[$inputField, $lastInput]} activeOpacity={1} onPress={focusInput}>
+                          <Text style={$inputText}>{digit}</Text>
+                        </TouchableOpacity>
+                      )
+                    })
+                  }
                 </View>
                 <Text text="-"/>
                 <View style={$inputFieldSection}>
-                  <TextField inputWrapperStyle={$inputField} style={$inputText} value={codeInput[3]} keyboardType={"number-pad"} ref={(ref)=>{inputRef.current[3]=ref}} onChangeText={(text)=>handleInputChange(text, 3)}/>
-                  <TextField inputWrapperStyle={$inputField} style={$inputText} value={codeInput[4]} keyboardType={"number-pad"} ref={(ref)=>{inputRef.current[4]=ref}} onChangeText={(text)=>handleInputChange(text, 4)}/>
-                  <TextField inputWrapperStyle={[$inputField, $lastInput]} style={$inputText} value={codeInput[5]} keyboardType={"number-pad"} ref={(ref)=>{inputRef.current[5]=ref}} onChangeText={(text)=>handleInputChange(text, 5)}/>
+                  {
+                    Array(3).fill(0).map((e, index)=>{
+                      const digit = codeInput[index+3] || '';
+                      if(index !== 2) return (
+                        <TouchableOpacity style={$inputField} activeOpacity={1} onPress={focusInput}>
+                          <Text style={$inputText}>{digit}</Text>
+                        </TouchableOpacity>
+                      )
+                      else return (
+                        <TouchableOpacity style={[$inputField, $lastInput]} activeOpacity={1} onPress={focusInput}>
+                          <Text style={$inputText}>{digit}</Text>
+                        </TouchableOpacity>
+                      )
+                    })
+                  }
                 </View>
+                <TextInput
+                  ref={inputRef}
+                  value={codeInput}
+                  maxLength={6}
+                  onChangeText={(text)=>handleInputChange(text)}
+                  style={$textInputField}
+                  keyboardType="number-pad"
+                />
               </View>
-              <Text style={$footerText} text="Can't find your code? Check your spam folder!"/>
-              <Button style={$verifyButton} text="VERIFY" textStyle={$verifyText} pressedStyle={$buttonPressed} onPress={verifyCode}/>
+              <Text style={$footerText} tx={"common.textAndLink.checkSpamFolder"}/>
+              <Button style={$verifyButton} tx={"common.button.verify"} textStyle={$verifyText} pressedStyle={$buttonPressed} onPress={verifyCode}/>
               <Toast visible={isVisible!=="hidden"?true:null} position={Dimensions.get('window').height*0.085} containerStyle={[$toast, isVisible==="success"?$toastBackgroundSuccess:$toastBackgroundError]}>
                 <View style={$textContainer}>
                   <View style={[$toastIconContainer, isVisible==='success'?$toastIconBorderSuccess:$toastIconBorderError]}>
                     <Icon style={[$toastIcon, isVisible==="success"?$toastIconSuccess:$toastIconError]} icon={isVisible==='success'?"check":"x"}/>
                   </View>
-                  <Text style={$toastText} text={isVisible==='success'?"Verify phone number success!":"Verify phone number failed!"}/>
+                  <Text style={$toastText} tx={isVisible==='success'?"common.success.verifyPhoneNumberSuccess":"common.error.verifyPhoneNumberFailed"}/>
                 </View>
               </Toast>
             </View>
@@ -142,11 +169,11 @@ const $brandNameText: TextStyle = {
 const $formContainer: ViewStyle = {
   backgroundColor: 'white',
   marginTop: height*0.065,
-  height: height*0.73,
   width: width*1,
   justifyContent: 'flex-start',
   alignItems: 'center',
-  paddingTop: height*0.025
+  paddingTop: height*0.025,
+  paddingBottom: height*0.16
 }
 
 const $iconContainer: ViewStyle = {
@@ -174,16 +201,16 @@ const $formName: TextStyle = {
 const $informText: TextStyle = {
   fontSize: 14 / fontScale,
   textAlign: 'center',
-  width: width*0.75,
+  width: width*0.65,
   lineHeight: 18
 }
 
-const $email: TextStyle = {
+const $phoneNumber: TextStyle = {
   fontWeight: 'bold'
 }
 
 const $inputFieldContainer: ViewStyle = {
-  gap: height*0.013,
+  gap: 15,
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-around',
@@ -196,9 +223,10 @@ const $inputFieldSection: ViewStyle = {
 }
 
 const $inputField: ViewStyle = {
-  width: width*0.85/7,
-  height: height*0.12,
+  width: 50,
+  height: 80,
   backgroundColor: 'white',
+  borderWidth: 1,
   borderRightWidth: 0
 }
 
@@ -207,11 +235,20 @@ const $lastInput: ViewStyle = {
 }
 
 const $inputText: TextStyle = {
-  fontSize: 35 / fontScale,
+  fontSize: 40 / fontScale,
   textAlign: 'center',
   textAlignVertical: 'center',
-  alignSelf: 'center',
+  lineHeight: 54,
   height: '100%'
+}
+
+const $textInputField: ViewStyle = {
+  position:'absolute',
+  width: '100%',
+  height: 0,
+  left: 0,
+  top: 0,  
+  backgroundColor: 'transparent'
 }
 
 const $footerText: TextStyle = {

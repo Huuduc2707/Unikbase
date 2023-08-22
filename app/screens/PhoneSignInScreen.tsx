@@ -2,20 +2,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, ScrollView, View, ImageStyle, TextStyle, TouchableOpacity, KeyboardAvoidingView, Platform, Dimensions, StatusBar } from "react-native"
+import { ViewStyle, ScrollView, View, ImageStyle, TextStyle, KeyboardAvoidingView, Platform, Dimensions, StatusBar } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
-import { Screen, Text, Icon, TextField, Button, ForgotPasswordModal } from "app/components"
+import { Screen, Text, Icon, TextField, Button, ForgotPasswordModal, TextAndLink, PasswordInput } from "app/components"
 import { useNavigation } from "@react-navigation/native"
-// import { useNavigation } from "@react-navigation/native"
+import { Formik } from "formik"
 // import { useStores } from "app/models"
 
 interface PhoneSignInScreenProps extends NativeStackScreenProps<AppStackScreenProps<"PhoneSignIn">> {}
 
 export const PhoneSignInScreen: FC<PhoneSignInScreenProps> = observer(function PhoneSignInScreen() {
-  const [isHiddenPassword, setIsHiddenPassword] = useState(true)
-  const [phoneNumber, setPhoneNumber] = useState("")
-  const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [isForgotPasswordVisible, setIsForgotPasswordVisible] = useState(false)
   // Pull in one of our MST stores
@@ -23,8 +20,8 @@ export const PhoneSignInScreen: FC<PhoneSignInScreenProps> = observer(function P
 
   const navigation = useNavigation()
 
-  function signIn(){
-    if(!/^\d{10,11}$/.test(phoneNumber) || phoneNumber !== "0123456789" || !/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(password) || password !== "Johndoe@123"){
+  function signIn(values){
+    if(!/^\d{10,11}$/.test(values.phoneNumber) || values.phoneNumber !== "0123456789" || !/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(values.password) || values.password !== "Johndoe@123"){
       setError("IncorrectInfo")
       return
     }
@@ -44,7 +41,7 @@ export const PhoneSignInScreen: FC<PhoneSignInScreenProps> = observer(function P
 
           {/* Welcome text */}
           <View style={$textContainer}>
-            <Text style={$headerText} text="Welcome to Unikbase!" />
+            <Text style={$headerText} tx={"common.textAndLink.welcomeText"} />
           </View>
 
           {/* Sign in form */}
@@ -53,26 +50,62 @@ export const PhoneSignInScreen: FC<PhoneSignInScreenProps> = observer(function P
               <Icon style={$arrowIcon} icon="tlc"/>
               <Icon style={$arrowIcon} icon="trc"/>
             </View>
-            <View style={$form}>
-              <Text style={$formName} text="Sign in"/>
-              <View style={$inputFieldContainer}>
-                <Text style={$inputlabel} text="Phone number"/>
-                <TextField status={(error==="IncorrectInfo")?"error":null} containerStyle={$inputField} value={phoneNumber} onChangeText={(text)=>setPhoneNumber(text)}/>
-                <Text style={(error==="IncorrectInfo")?$errorText:$hideDisplay} text={(error==="IncorrectInfo")?"Incorrect phone number or password.":null}/>
-                <Text style={$inputlabel} text="Password"/>
-                <TextField status={(error==="IncorrectInfo")?"error":null} containerStyle={$inputField} value={password} secureTextEntry={isHiddenPassword} onChangeText={(text)=>setPassword(text)} RightAccessory={()=><Icon style={[$viewIcon, error==="IncorrectInfo"?{tintColor: "red"}:null]} icon={isHiddenPassword?"view":"hidden"} onPress={()=>setIsHiddenPassword(!isHiddenPassword)}/>} />
-                <Text style={(error==="IncorrectInfo")?$errorText:$hideDisplay} text={(error==="IncorrectInfo")?"Incorrect phone number or password.":null}/>
-              </View>
-              <TouchableOpacity activeOpacity={0.7} onPress={()=>setIsForgotPasswordVisible(true)}>
-                <Text style={[$forgotPasswordText, $link]} text="Forgot your password?"/>
-              </TouchableOpacity>
-              <Button style={$signInButton} text="CONTINUE" textStyle={$signInText} pressedStyle={$buttonPressed} onPress={signIn}/>
-              <View style={$footerContainer}>
-                <Text style={$footerText} text="New to Unikbase?"/>
-                <TouchableOpacity activeOpacity={0.7} onPress={()=>navigation.navigate("Register")}>
-                  <Text style={[$footerText, $link]} text="Create an account"/>
-                </TouchableOpacity>
-              </View>
+            <Formik
+              initialValues={{phoneNumber: "", password: ""}}
+              onSubmit={(values)=>signIn(values)}
+            >
+              {
+                ({handleSubmit, handleChange, values})=> (
+                  <View style={$form}>
+                    <Text style={$formName} tx={"common.formName.signIn"}/>
+                    <View style={$inputFieldContainer}>
+                      <TextField 
+                        status={(error==="IncorrectInfo")?"error":null} 
+                        inputWrapperStyle={$inputField} 
+                        value={values.phoneNumber}
+                        labelTx={"common.formLabel.phoneNumber"}
+                        LabelTextProps={{style: $inputlabel}}
+                        helperTx={(error==="IncorrectInfo")?"common.error.incorrectPhoneNumberOrPassword":null}
+                        HelperTextProps={{style: $errorText}}
+                        onChangeText={handleChange("phoneNumber")}
+                      />
+
+                      <PasswordInput 
+                        status={(error==="IncorrectInfo")?"error":null} 
+                        style={$inputField} 
+                        value={values.password} 
+                        labelTx={"common.formLabel.password"}
+                        labelTextProps={{style: $inputlabel}}
+                        helperTx={(error==="IncorrectInfo")?"common.error.incorrectPhoneNumberOrPassword":null}
+                        helperTextProps={{style: $errorText}}
+                        onChangeText={handleChange("password")}
+                      />
+                    </View>
+                    <TextAndLink 
+                      txLink={"common.textAndLink.forgotPassword"} 
+                      linkStyle={$forgotPasswordText} 
+                      noTrailingSpace={true} 
+                      onLinkPress={()=>setIsForgotPasswordVisible(true)}
+                    />
+                    <Button 
+                      style={$signInButton} 
+                      tx={"common.button.continue"} 
+                      textStyle={$signInText} 
+                      pressedStyle={$buttonPressed} 
+                      onPress={()=>handleSubmit()}
+                    />
+                  </View>
+                )
+              }
+            </Formik>
+            <View style={$footerContainer}>
+              <Text style={$footerText} tx={"common.textAndLink.createAccountQuestion"}/>
+              <TextAndLink 
+                txLink={"common.textAndLink.createAccount"}
+                linkStyle={$footerText}
+                noTrailingSpace={true}
+                onLinkPress={()=>navigation.navigate("Register")}
+              />
             </View>
             <View style={$iconContainer}>
               <Icon style={$arrowIcon} icon="blc"/>
@@ -132,13 +165,14 @@ const $headerText: TextStyle = {
 
 // Form section
 const $formContainer: ViewStyle = {
+  flex: 1,
   backgroundColor: 'white',
   marginTop: height*0.04,
-  height: height*0.63,
   width: width*1,
   justifyContent: 'flex-start',
   alignItems: 'center',
-  paddingTop: height*0.025
+  paddingTop: height*0.025,
+  paddingBottom: height*0.07
 }
 
 const $iconContainer: ViewStyle = {
@@ -164,12 +198,11 @@ const $formName: TextStyle = {
 }
 
 const $inputlabel: TextStyle = {
-  fontSize: 15 / fontScale,
-  marginBottom: -height*0.012,
+  fontSize: 15 / fontScale
 }
 
 const $inputFieldContainer: ViewStyle = {
-  gap: height*0.013
+  gap: 10
 }
 
 const $inputField: ViewStyle = {
@@ -178,25 +211,15 @@ const $inputField: ViewStyle = {
   backgroundColor: 'white',
 }
 
-const $viewIcon: ImageStyle = {
-  marginRight: 10,
-  marginVertical: height*0.05/6.5
-}
-
 const $forgotPasswordText: TextStyle = {
-  fontSize: 12 / fontScale,
+  fontSize: 13 / fontScale,
   marginTop: height*0.01
-}
-
-const $link: TextStyle = {
-  color: 'blue',
-  textDecorationLine: 'underline'
 }
 
 const $signInButton: ViewStyle = {
   width: width*0.85,
   backgroundColor: "#F14300",
-  marginTop: height*0.02
+  marginTop: height*0.01
 }
 
 const $signInText: TextStyle = {
@@ -222,11 +245,6 @@ const $footerText: TextStyle = {
 const $errorText: TextStyle = {
   fontSize: 13,
   color: 'red',
-  marginTop: -height*0.005,
   width: width*0.85,
   lineHeight: 14
-}
-
-const $hideDisplay: ViewStyle = {
-  display: 'none'
 }

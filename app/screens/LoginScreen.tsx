@@ -1,23 +1,24 @@
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, ImageStyle, TextStyle, Dimensions, StatusBar } from "react-native"
+import { ViewStyle, View, ImageStyle, TextStyle, Dimensions, StatusBar, ScrollView } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { Screen, Text, Icon, Button, Line, SignInButton, IconTypes } from "app/components"
 import { useNavigation } from "@react-navigation/native"
+import { TxKeyPath } from "app/i18n"
 // import { useStores } from "app/models"
 
 interface ISignInButton {
   icon: IconTypes
-  text: string
+  text: TxKeyPath
   navigateTo: string
 }
 
 const signInButton: ISignInButton[] = [
-  { icon: "mail", text: "Sign in with Email", navigateTo: "EmailSignIn" },
-  { icon: "phone", text: "Sign in with Phone Number", navigateTo: "PhoneSignIn" },
-  { icon: "google", text: "Continue with Google", navigateTo: "GoogleSignIn" },
-  { icon: "facebook", text: "Continue with Facebook", navigateTo: "FacebooSignIn" },
+  { icon: "mail", text: "common.button.emailSignIn", navigateTo: "EmailSignIn" },
+  { icon: "phone", text: "common.button.phoneNumberSignIn", navigateTo: "PhoneSignIn" },
+  { icon: "google", text: "common.button.googleSignIn", navigateTo: "GoogleSignIn" },
+  { icon: "facebook", text: "common.button.facebookSignIn", navigateTo: "FacebooSignIn" },
 ]
 
 interface LoginScreenProps extends NativeStackScreenProps<AppStackScreenProps<"Login">> {}
@@ -31,53 +32,57 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
 
   return (
     <Screen style={$root} preset="fixed">
-      {/* Logo and brand name */}
-      <View style={$title}>
-        <Icon style={$logo} icon="unikbase" />
-        <Text style={$brandNameText} text="unikbase" />
-      </View>
-
-      {/* Text zone */}
-      <View style={$textContainer}>
-        <Text style={$headerText} text="Welcome to Unikbase!" />
-        <Text
-          style={$instructionText}
-          text="Create your account or sign into an existing account to build and manage your digital twins."
-        />
-      </View>
-
-      {/* Button zone */}
-      <View style={$buttonContainer}>
-        <Button
-          style={$createAccountButton}
-          text="CREATE ACCOUNT"
-          textStyle={$createAccountText}
-          pressedStyle={$buttonPressed}
-          onPress={() => navigation.navigate("Register")}
-        />
-        <View style={$buttonSeperator}>
-          <Line />
-          <Text style={$seperatorText} text="or" />
-          <Line />
+      <ScrollView>
+        {/* Logo and brand name */}
+        <View style={$title}>
+          <Icon style={$logo} icon="unikbase" />
+          <Text style={$brandNameText} text="unikbase" />
         </View>
-        <View style={$signInButtonContanier}>
-          {signInButton.map((ele, index) => (
-            <SignInButton icon={ele.icon} text={ele.text} key={index} navigateTo={ele.navigateTo}/>
-          ))}
+
+        {/* Text zone */}
+        <View style={$textContainer}>
+          <Text style={$headerText}  tx={"common.textAndLink.welcomeText"} />
+          <Text
+            style={$instructionText}
+            tx={"loginScreen.informText"}
+          />
         </View>
-      </View>
+
+        {/* Button zone */}
+        <View style={$buttonContainer}>
+          <Button
+            style={$createAccountButton}
+            tx={"common.button.createAccount"}
+            textStyle={$createAccountText}
+            pressedStyle={$buttonPressed}
+            onPress={() => navigation.navigate("Register")}
+          />
+          <View style={$buttonSeperator}>
+            <Line />
+            <Text style={$seperatorText} text="or" />
+          </View>
+          <View style={$signInButtonContanier}>
+            {signInButton.map((ele, index) => (
+              <SignInButton icon={ele.icon} tx={ele.text} key={index} navigateTo={ele.navigateTo}/>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
     </Screen>
   )
 })
 
-// Styling zone
-// Root container
-const {width, height} = Dimensions.get('window')
 
+
+// Styling zone
+const {width, height} = Dimensions.get('window')
+// Root container
 const $root: ViewStyle = {
+  flex: 1,
   backgroundColor: "#001B26",
   marginTop: StatusBar.currentHeight,
   alignItems: "center",
+  paddingBottom: 40
 }
 
 // Logo and brand name section
@@ -103,7 +108,7 @@ const $brandNameText: TextStyle = {
 // Text section
 const $textContainer: TextStyle = {
   marginTop: height*0.08,
-  width: width*0.75,
+  // width: width*0.75,
   maxWidth: 350,
   alignItems: "center",
   alignSelf: "center"
@@ -138,7 +143,8 @@ const $createAccountButton: ViewStyle = {
 
 const $createAccountText: TextStyle = {
   color: "white",
-  fontWeight: "bold"
+  fontWeight: "bold",
+  lineHeight: 16
 }
 
 const $buttonPressed: ViewStyle = {
@@ -150,13 +156,18 @@ const $buttonSeperator: ViewStyle = {
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "center",
-  alignSelf: 'center'
+  alignSelf: 'center',
+  paddingHorizontal: 35,
+  paddingVertical: 15,
 }
 
 const $seperatorText: TextStyle = {
+  position: 'absolute',
   color: "white",
   fontSize: 18,
-  marginHorizontal: width*0.055
+  marginHorizontal: width*0.055,
+  backgroundColor: '#001B26',
+  paddingHorizontal: 20
 }
 
 const $signInButtonContanier: ViewStyle = {
