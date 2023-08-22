@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, ImageStyle, TextStyle } from "react-native"
+import { ViewStyle, View, ImageStyle, TextStyle, Dimensions, StatusBar } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { Screen, Text, Icon, Button, Line, SignInButton, IconTypes } from "app/components"
@@ -72,9 +72,11 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
 
 // Styling zone
 // Root container
+const {width, height} = Dimensions.get('window')
+
 const $root: ViewStyle = {
   backgroundColor: "#001B26",
-  marginTop: 35,
+  marginTop: StatusBar.currentHeight,
   alignItems: "center",
 }
 
@@ -83,7 +85,7 @@ const $title: ViewStyle = {
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "flex-end",
-  marginTop: 130,
+  marginTop: height*0.15,
 }
 
 const $logo: ImageStyle = {
@@ -94,29 +96,32 @@ const $logo: ImageStyle = {
 const $brandNameText: TextStyle = {
   color: "white",
   fontSize: 35,
-  fontWeight: "normal",
   lineHeight: 35,
   letterSpacing: 0.5,
 }
 
 // Text section
 const $textContainer: TextStyle = {
-  marginTop: 60,
-  width: 250,
+  marginTop: height*0.08,
+  width: width*0.75,
+  maxWidth: 350,
   alignItems: "center",
-  alignSelf: "center",
+  alignSelf: "center"
 }
 
 const $headerText: TextStyle = {
   color: "white",
-  fontSize: 20,
-  fontWeight: "bold",
+  fontSize: 23,
   lineHeight: 50,
+  letterSpacing: 0.23,
+  textAlign: 'center'
 }
 
 const $instructionText: TextStyle = {
+  fontSize: 17,
   color: "white",
   textAlign: "center",
+  marginTop: height*0.015
 }
 
 // Button section
@@ -125,14 +130,15 @@ const $buttonContainer: ViewStyle = {
 }
 
 const $createAccountButton: ViewStyle = {
-  width: 300,
+  width: width*0.81,
   backgroundColor: "#F14300",
-  marginTop: 50,
+  marginTop: height*0.05,
+  alignSelf: 'center'
 }
 
 const $createAccountText: TextStyle = {
   color: "white",
-  fontWeight: "bold",
+  fontWeight: "bold"
 }
 
 const $buttonPressed: ViewStyle = {
@@ -144,14 +150,15 @@ const $buttonSeperator: ViewStyle = {
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "center",
+  alignSelf: 'center'
 }
 
 const $seperatorText: TextStyle = {
   color: "white",
   fontSize: 18,
-  marginHorizontal: 20,
+  marginHorizontal: width*0.055
 }
 
 const $signInButtonContanier: ViewStyle = {
-  gap: 5,
+  gap: 4,
 }

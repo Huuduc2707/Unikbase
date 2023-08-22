@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import { StyleProp, TextStyle, ViewStyle, TouchableOpacity, ImageStyle } from "react-native"
+import { StyleProp, TextStyle, ViewStyle, TouchableOpacity, ImageStyle, Dimensions } from "react-native"
 import { observer } from "mobx-react-lite"
 import { Text } from "app/components/Text"
 import { Icon } from "./Icon"
@@ -38,22 +38,25 @@ export const PhoneCodePicker = observer(function PhoneCodePicker(props: PhoneCod
   )
 })
 
+
+const {width, height, fontScale} = Dimensions.get('window')
+
 const $container: ViewStyle = {
   flexDirection: 'row',
   justifyContent: 'space-evenly',
   alignItems: 'center',
   borderWidth: 1,
   borderColor: 'black',
-  width: 90,
-  height: 30
+  width: width*0.25,
+  height: height*0.04
 }
 
 const $text: TextStyle = {
-  fontSize: 14,
+  fontSize: 14 / fontScale,
   color: 'black'
 }
 
 const $icon: ImageStyle = {
-  width: 10,
-  height: 10
+  width: 10 / fontScale,
+  height: 10 / fontScale
 }

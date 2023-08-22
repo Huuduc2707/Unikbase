@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   ViewStyle,
+  Dimensions
 } from "react-native"
 import { isRTL, translate } from "../i18n"
 import { colors, spacing } from "../theme"
@@ -230,6 +231,8 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   )
 })
 
+const {height, fontScale} = Dimensions.get('window')
+
 const $labelStyle: TextStyle = {
   marginBottom: spacing.xs,
 }
@@ -247,13 +250,14 @@ const $inputStyle: TextStyle = {
   flex: 1,
   alignSelf: "stretch",
   color: colors.text,
-  fontSize: 16,
-  height: 24,
+  fontSize: 16 / fontScale,
+  height: height*0.045,
+  maxHeight: 50,
   // https://github.com/facebook/react-native/issues/21720#issuecomment-532642093
   paddingVertical: 0,
   paddingHorizontal: 0,
-  marginVertical: spacing.xs,
   marginHorizontal: spacing.sm,
+  textAlignVertical: 'center'
 }
 
 const $helperStyle: TextStyle = {
@@ -264,7 +268,7 @@ const $rightAccessoryStyle: ViewStyle = {
   marginEnd: spacing.xs,
   height: 40,
   justifyContent: "center",
-  alignItems: "center"
+  alignItems: "center",
 }
 const $leftAccessoryStyle: ViewStyle = {
   marginStart: spacing.xs,

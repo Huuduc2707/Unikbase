@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, ScrollView, KeyboardAvoidingView, View, TextStyle, ImageStyle, Platform } from "react-native"
+import { ViewStyle, View, TextStyle, ImageStyle, StatusBar, Dimensions } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { Screen, Text, Icon, Button } from "app/components"
@@ -17,8 +17,6 @@ export const CompleteVerifyAccountScreen: FC<CompleteVerifyAccountScreenProps> =
 
   return (
     <Screen style={$root} preset="fixed">
-      <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={Platform.OS==="android"?45:0}>
-        <ScrollView>
           {/* Logo and brand name */}
           <View style={$title}>
             <Icon style={$logo} icon="unikbase"/>
@@ -29,32 +27,32 @@ export const CompleteVerifyAccountScreen: FC<CompleteVerifyAccountScreenProps> =
           <View style={$formContainer}>
             <View style={$iconContainer}>
               <Icon style={$arrowIcon} icon="tlc"/>
-              <Icon style={$arrowIcon} icon="blc"/>
+              <Icon style={$arrowIcon} icon="trc"/>
             </View>
             <View style={$form}>
               <Text style={$formName} text="Congratulations!"/> 
               <Text style={$informText}>You've successfully verified your Unikbase account. Process now to fully enjoy our awesome features!</Text>
               <Button style={$doneButton} text="DONE" textStyle={$doneText} pressedStyle={$buttonPressed} onPress={()=>navigation.navigate("Login")}/>
-              <Text style={$footerText} text="For lost email or forgotten email address. You can change and verify your details under Setting > Security & Privacy."/>
             </View>
             <View style={$iconContainer}>
-              <Icon style={$arrowIcon} icon="trc"/>
+              <Icon style={$arrowIcon} icon="blc"/>
               <Icon style={$arrowIcon} icon="brc"/>
             </View>
+            <Text style={$footerText} text="For lost email or forgotten email address. You can change and verify your details under Setting > Security & Privacy."/>
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
     </Screen>
   )
 })
 
 
 
+const {width, height, fontScale} = Dimensions.get('window')
+
 // Styling zone
 const $root: ViewStyle = {
   flex: 1,
   backgroundColor: "#001B26",
-  marginTop: 35
+  marginTop: StatusBar.currentHeight
 }
 
 // Logo and brand name section
@@ -62,17 +60,17 @@ const $title: ViewStyle = {
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'flex-end',
-  marginTop: 130,
+  marginTop: height*0.15,
 }
 
 const $logo: ImageStyle = {
-  width: 65,
-  height: 65
+  width: 65 / fontScale,
+  height: 65 / fontScale
 }
 
 const $brandNameText: TextStyle = {
   color: 'white',
-  fontSize: 35,
+  fontSize: 35 / fontScale,
   fontWeight: 'normal',
   lineHeight: 35,
   letterSpacing: 0.5
@@ -81,57 +79,60 @@ const $brandNameText: TextStyle = {
 // Form section
 const $formContainer: ViewStyle = {
   backgroundColor: 'white',
-  flexDirection: 'row',
-  padding: 15,
-  marginTop: 65,
-  height: 510
+  marginTop: height*0.065,
+  height: height*0.73,
+  width: width*1,
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  paddingTop: height*0.025
 }
 
 const $iconContainer: ViewStyle = {
-  alignSelf: 'flex-start',
-  height: 230,
-  justifyContent: 'space-between'
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: width*0.82
 }
 
 const $arrowIcon: ImageStyle = {
-  width: 15,
-  height: 15
+  width: 15 / fontScale,
+  height: 15 / fontScale
 }
 
 const $form: ViewStyle = {
-  marginVertical: 10,
-  width: 330,
-  alignItems: 'center'
+  alignItems: 'center',
+  marginTop: -10
 }
 
 const $formName: TextStyle = {
-  fontSize: 19,
-  marginBottom: 25
+  fontSize: 19 / fontScale,
+  marginBottom: height*0.025
 }
 
 const $informText: TextStyle = {
-  fontSize: 18,
+  fontSize: 18 / fontScale,
   textAlign: 'center',
-  width: 350
+  width: width*0.85
 }
 
 const $footerText: TextStyle = {
-  fontSize: 15,
-  marginTop: 50,
-  width: 320,
+  fontSize: 15 / fontScale,
+  marginTop: height*0.03,
+  width: width*0.85,
   textAlign: 'center'
 }
 
 const $doneButton: ViewStyle = {
-  width: 320,
-  height: 40,
+  width: width*0.85,
   backgroundColor: "#F14300",
-  marginTop: 35
+  marginTop: height*0.04,
+  marginBottom: height*0.03
 }
 
 const $doneText: TextStyle = {
   color: "white",
-  fontWeight: "bold"
+  fontWeight: "bold",
+  textAlignVertical: 'center'
 }
 
 const $buttonPressed: ViewStyle = {

@@ -1,6 +1,8 @@
+/* eslint-disable react-native/no-color-literals */
+/* eslint-disable react-native/no-inline-styles */
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, ScrollView, View, ImageStyle, TextStyle, TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native"
+import { ViewStyle, ScrollView, View, ImageStyle, TextStyle, TouchableOpacity, KeyboardAvoidingView, Platform, Dimensions, StatusBar } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { Screen, Text, Icon, TextField, Button } from "app/components"
@@ -30,7 +32,7 @@ export const PhoneSignInScreen: FC<PhoneSignInScreenProps> = observer(function P
 
   return (
     <Screen style={$root} preset="fixed">
-      <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={Platform.OS==="android"?45:0}>
+      <KeyboardAvoidingView behavior={Platform.OS==="android"?"padding":null} keyboardVerticalOffset={Platform.OS==="android"?25:0}>
         <ScrollView>
 
           {/* Logo and brand name */}
@@ -48,7 +50,7 @@ export const PhoneSignInScreen: FC<PhoneSignInScreenProps> = observer(function P
           <View style={$formContainer}>
             <View style={$iconContainer}>
               <Icon style={$arrowIcon} icon="tlc"/>
-              <Icon style={$arrowIcon} icon="blc"/>
+              <Icon style={$arrowIcon} icon="trc"/>
             </View>
             <View style={$form}>
               <Text style={$formName} text="Sign in"/>
@@ -57,7 +59,7 @@ export const PhoneSignInScreen: FC<PhoneSignInScreenProps> = observer(function P
                 <TextField status={(error==="IncorrectInfo")?"error":null} containerStyle={$inputField} value={phoneNumber} onChangeText={(text)=>setPhoneNumber(text)}/>
                 <Text style={(error==="IncorrectInfo")?$errorText:$hideDisplay} text={(error==="IncorrectInfo")?"Incorrect phone number or password":null}/>
                 <Text style={$inputlabel} text="Password"/>
-                <TextField status={(error==="IncorrectInfo")?"error":null} containerStyle={$inputField} secureTextEntry={isHiddenPassword} onChangeText={(text)=>setPassword(text)} RightAccessory={()=><Icon style={$viewIcon} icon={isHiddenPassword?"view":"hidden"} onPress={()=>setIsHiddenPassword(!isHiddenPassword)}/>} />
+                <TextField status={(error==="IncorrectInfo")?"error":null} containerStyle={$inputField} secureTextEntry={isHiddenPassword} onChangeText={(text)=>setPassword(text)} RightAccessory={()=><Icon style={[$viewIcon, error==="IncorrectInfo"?{tintColor: "red"}:null]} icon={isHiddenPassword?"view":"hidden"} onPress={()=>setIsHiddenPassword(!isHiddenPassword)}/>} />
                 <Text style={(error==="IncorrectInfo")?$errorText:$hideDisplay} text={(error==="IncorrectInfo")?"Incorrect phone number or password":null}/>
               </View>
               <TouchableOpacity activeOpacity={0.7} onPress={()=>navigation.navigate("ForgotPassword")}>
@@ -72,7 +74,7 @@ export const PhoneSignInScreen: FC<PhoneSignInScreenProps> = observer(function P
               </View>
             </View>
             <View style={$iconContainer}>
-              <Icon style={$arrowIcon} icon="trc"/>
+              <Icon style={$arrowIcon} icon="blc"/>
               <Icon style={$arrowIcon} icon="brc"/>
             </View>
           </View>
@@ -84,11 +86,13 @@ export const PhoneSignInScreen: FC<PhoneSignInScreenProps> = observer(function P
 
 
 
-// Styling zone
+const {width, height, fontScale} = Dimensions.get('window')
+
 const $root: ViewStyle = {
   flex: 1,
   backgroundColor: "#001B26",
-  marginTop: 35
+  marginTop: StatusBar.currentHeight,
+  alignItems: 'center'
 }
 
 // Logo and brand name section
@@ -96,17 +100,17 @@ const $title: ViewStyle = {
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'flex-end',
-  marginTop: 130,
+  marginTop: height*0.15,
 }
 
 const $logo: ImageStyle = {
-  width: 65,
-  height: 65
+  width: 65 / fontScale,
+  height: 65 / fontScale
 }
 
 const $brandNameText: TextStyle = {
   color: 'white',
-  fontSize: 35,
+  fontSize: 35 / fontScale,
   fontWeight: 'normal',
   lineHeight: 35,
   letterSpacing: 0.5
@@ -114,68 +118,72 @@ const $brandNameText: TextStyle = {
 
 // Welcome text section
 const $textContainer: TextStyle = {
-  marginTop: 65,
-  width: 250,
-  alignItems: "center",
-  alignSelf: "center",
+  marginTop: height*0.07,
+  alignItems: "center"
 }
 
 const $headerText: TextStyle = {
   color: "white",
-  fontSize: 22,
+  fontSize: 22 / fontScale,
   lineHeight: 50,
 }
 
 // Form section
 const $formContainer: ViewStyle = {
   backgroundColor: 'white',
-  flexDirection: 'row',
-  padding: 15,
-  marginTop: 20,
+  marginTop: height*0.04,
+  height: height*0.63,
+  width: width*1,
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  paddingTop: height*0.025
 }
 
 const $iconContainer: ViewStyle = {
-  alignSelf: 'flex-start',
-  height: 410,
-  justifyContent: 'space-between'
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: width*0.82
 }
 
 const $arrowIcon: ImageStyle = {
-  width: 15,
-  height: 15
+  width: 15 / fontScale,
+  height: 15 / fontScale
 }
 
 const $form: ViewStyle = {
-  marginVertical: 10,
-  width: 330,
-  alignItems: 'center'
+  alignItems: 'center',
+  marginTop: -10
 }
 
 const $formName: TextStyle = {
-  fontSize: 19,
-  marginBottom: 15
+  fontSize: 19 / fontScale,
+  marginBottom: height*0.025
 }
 
 const $inputlabel: TextStyle = {
-  fontSize: 15
+  fontSize: 15 / fontScale,
+  marginBottom: -height*0.012,
 }
 
 const $inputFieldContainer: ViewStyle = {
-  gap: 5
+  gap: height*0.013
 }
 
 const $inputField: ViewStyle = {
-  width: 320,
+  width: width*0.85,
+  height: height*0.05,
   backgroundColor: 'white',
 }
 
 const $viewIcon: ImageStyle = {
-  marginVertical: 7.5,
-  marginRight: 10
+  marginRight: 10,
+  marginVertical: height*0.05/6.5
 }
 
 const $forgotPasswordText: TextStyle = {
-  fontSize: 12
+  fontSize: 12 / fontScale,
+  marginTop: height*0.01
 }
 
 const $link: TextStyle = {
@@ -184,15 +192,15 @@ const $link: TextStyle = {
 }
 
 const $signInButton: ViewStyle = {
-  width: 320,
-  height: 40,
+  width: width*0.85,
   backgroundColor: "#F14300",
-  marginTop: 25
+  marginTop: height*0.02
 }
 
 const $signInText: TextStyle = {
   color: "white",
   fontWeight: "bold",
+  textAlignVertical: 'center'
 }
 
 const $buttonPressed: ViewStyle = {
@@ -201,19 +209,20 @@ const $buttonPressed: ViewStyle = {
 }
 
 const $footerContainer: ViewStyle = {
-  marginTop: 15,
+  marginTop: height*0.02,
   alignItems: 'center'
 }
 
 const $footerText: TextStyle = {
-  fontSize: 14
+  fontSize: 14 /fontScale
 }
 
 const $errorText: TextStyle = {
   fontSize: 13,
   color: 'red',
-  width: 320,
-  lineHeight: 12
+  marginTop: -height*0.005,
+  width: width*0.85,
+  lineHeight: 14
 }
 
 const $hideDisplay: ViewStyle = {
