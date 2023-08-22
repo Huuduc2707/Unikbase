@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite"
 import { ViewStyle, ScrollView, View, ImageStyle, TextStyle, TouchableOpacity, KeyboardAvoidingView, Platform, StatusBar, Dimensions } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
-import { Screen, Text, Icon, TextField, Button } from "app/components"
+import { Screen, Text, Icon, TextField, Button, ForgotPasswordModal } from "app/components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
 
@@ -16,6 +16,7 @@ export const EmailSignInScreen: FC<EmailSignInScreenProps> = observer(function E
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+  const [isForgotPasswordVisible, setIsForgotPasswordVisible] = useState(false)
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
 
@@ -61,7 +62,7 @@ export const EmailSignInScreen: FC<EmailSignInScreenProps> = observer(function E
                 <TextField status={(error==="IncorrectInfo")?"error":null} containerStyle={$inputField} value={password} secureTextEntry={isHiddenPassword} onChangeText={(text)=>setPassword(text)} RightAccessory={()=><Icon style={[$viewIcon, error==="IncorrectInfo"?{tintColor:'red'}:null]} icon={isHiddenPassword?"view":"hidden"} onPress={()=>setIsHiddenPassword(!isHiddenPassword)}/>} />
                 <Text style={(error==="IncorrectInfo")?$errorText:$hideDisplay} text={(error==="IncorrectInfo")?"Incorrect email or password.":null}/>
               </View>
-              <TouchableOpacity activeOpacity={0.7} onPress={()=>navigation.navigate("ForgotPassword")}>
+              <TouchableOpacity activeOpacity={0.7} onPress={()=>setIsForgotPasswordVisible(true)}>
                 <Text style={[$forgotPasswordText, $link]} text="Forgot your password?"/>
               </TouchableOpacity>
               <Button style={$signInButton} text="CONTINUE" textStyle={$signInText} pressedStyle={$buttonPressed} onPress={signIn}/>
@@ -78,6 +79,7 @@ export const EmailSignInScreen: FC<EmailSignInScreenProps> = observer(function E
             </View>
           </View>
         </ScrollView>
+        <ForgotPasswordModal isVisible={isForgotPasswordVisible} setIsVisible={setIsForgotPasswordVisible}/>
       </KeyboardAvoidingView>
     </Screen>
   )
