@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, ImageStyle, TextStyle, KeyboardAvoidingView, ScrollView, Platform } from "react-native"
+import { ViewStyle, View, ImageStyle, TextStyle, KeyboardAvoidingView, ScrollView, Platform, TouchableOpacity } from "react-native"
 import CheckBox from "expo-checkbox"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
@@ -48,7 +48,7 @@ export const RegisterScreen: FC<RegisterScreenProps> = observer(function Registe
       setError("ConfirmPassword")
       return
     }
-    navigation.goBack()
+    navigation.navigate("EmailVerifyAccount")
   }
 
   return (
@@ -88,7 +88,9 @@ export const RegisterScreen: FC<RegisterScreenProps> = observer(function Registe
               <Button style={$createAccountButton} text="CREATE ACCOUNT" textStyle={$createAccountText} pressedStyle={$buttonPressed} onPress={createAccount}/>
               <View style={$footerContainer}>
                 <Text style={$footerText} text="Already using Unikbase?"/>
-                <Text style={[$footerText, $link]} text="Sign in"/>
+                <TouchableOpacity activeOpacity={0.7} onPress={()=>navigation.navigate("Login")}>
+                  <Text style={[$footerText, $link]} text="Sign in"/>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={$iconContainer}>
