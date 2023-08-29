@@ -11,7 +11,11 @@ const en = {
     done: "DONE",
     submit: "SUBMIT",
     removeWalletAndProceed: "REMOVE WALLET AND PROCEED",
-    cancel: "CANCEL"
+    cancel: "CANCEL",
+    createDigitalTwin: "CREATE DIGITAL TWIN",
+    clearAll: "ClearAll",
+    apply: "APPLY",
+    confirm: "CONFIRM"
    },
    error: {
       invalidUsername: "Your username is invalid.",
@@ -39,7 +43,10 @@ const en = {
       phoneNumber: "Phone number",
       password: "Password",
       confirmPassword: "Confirm Password",
-      countryName: "Country name"
+      countryName: "Country name",
+      search: "Search",
+      createAt: "Created At",
+      operator: "Operator"
     },
     textAndLink: {
       privacyPolicies: "Privacy Policies",
@@ -60,12 +67,23 @@ const en = {
       signIn: "Sign in",
       emailVerification: "Check your email for a code",
       phoneNumberVerification: "Check your mobile for a code",
-      congratulations: "Congratulations!"
+      congratulations: "Congratulations!",
+      search: "Search"
     },
     formLabel: {
       email: "Email",
       phoneNumber: "Phone number",
-      password: "Password"
+      password: "Password",
+      username: "Username",
+      mobilePhone: "Mobile Phone",
+      language: "Language",
+      unit: "Unit",
+      account: "Account",
+      firstName: "First Name",
+      lastName: "Last Name",
+      profileImage: "Profile Image",
+      newPassword: "New Password",
+      confirmNewPassword: "Confirm New Password"
     }
   },
   // welcomeScreen: {
@@ -101,6 +119,60 @@ const en = {
   forgotPasswordModal: {
     instruction: "Enter your email address to reset your password. You may need to check your spam folder or unblock no-reply@unikbase.com",
     warning: "If you proceed, your current wallet and account will be permanently removed. To recover them, you will need your username and password - Unikbase won't be able to assist you with this."
+  },
+  mainpageNavigator: {
+    tabLabel: {
+      wallet: "Wallet",
+      history: "History",
+      profile: "Profile",
+      more: "More"
+    },
+    tabName: {
+      tokenHistory: "Token History",
+      profile: "Profile",
+      more: "More",
+      scanNFCTag: "Scan NFC Tag",
+      FAQ: "FAQ",
+      privacyPolicy: "Privacy Policy",
+      termAndCondition: "Terms & Conditions",
+      logout: "Logout"
+    },
+    wallet: {
+      copied: "Copied to clipboard !",
+      titleBar: "My Digital Twins",
+      emptyWallet: "Here is where you can access and manage the Digital Twins you've created.",
+      checkboxFieldTitle: {
+        digitalTwinStatus: "DigitalTwin Status",
+        tokenStatus: "Token Status",
+        tokenOperatorStatus: "Token Operator Status"
+      },
+      checkBoxValue: {
+        active: "Active",
+        transferring: "Transferring",
+        refused: "Refused",
+        private: "Private",
+        shared: "Shared",
+        public: "Public",
+        owned: "Owned",
+        managed: "Managed"
+      }
+    },
+    history: {
+      emptyHistory: "Here is where you will find your transaction history, you haven't made any transactions yet."
+    },
+    profile: {
+      headerBarLabel: {
+        details: "Details",
+        password: "Password",
+        language: "Language",
+        account: "Account"
+      },
+      edit: "edit"
+    },
+    more: {
+      logout: "Are you sure you want to logout?"
+    }
+
   }
 }
 

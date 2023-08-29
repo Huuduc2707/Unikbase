@@ -37,7 +37,7 @@ export const PhoneCodeModal = observer(function PhoneCodeModal(props: PhoneCodeM
     else setItemList(newItemList)
   }
   return (
-    <Modal style={$styles} isVisible={state} animationIn={"slideInUp"} onBackdropPress={()=>setState(false)}>
+    <Modal style={$styles} isVisible={state} animationIn={"slideInUp"} onBackdropPress={()=>setState(false)} backdropTransitionOutTiming={0}>
       <TextField
         inputWrapperStyle={$searchBar}
         placeholderTx={"common.inputPlaceholder.countryName"}

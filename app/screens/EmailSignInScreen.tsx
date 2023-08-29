@@ -25,7 +25,7 @@ export const EmailSignInScreen: FC<EmailSignInScreenProps> = observer(function E
       setError("IncorrectInfo")
       return
     }
-    navigation.navigate("Login")
+    navigation.navigate("MainPage", {screen: "Wallet"})
   }
 
   return (

@@ -117,7 +117,19 @@ export const iconRegistry = {
   blc: require("../../assets/icons/bottom-left-corner.png"),
   brc: require("../../assets/icons/bottom-right-corner.png"),
   down: require("../../assets/icons/down.png"),
-  search: require("../../assets/icons/search.png")
+  search: require("../../assets/icons/search.png"),
+  wallet: require("../../assets/icons/wallet.png"),
+  history: require("../../assets/icons/history.png"),
+  profile: require("../../assets/icons/profile.png"),
+  moreList: require("../../assets/icons/moreList.png"),
+  roundLogo: require("../../assets/icons/roundLogo.png"),
+  caretDown: require("../../assets/icons/caretDown.png"),
+  copy: require("../../assets/icons/copy.png"),
+  roundSearch: require("../../assets/icons/roundSearch.png"),
+  add: require("../../assets/icons/add.png"),
+  search2: require("../../assets/icons/search2.png"),
+  calendar: require("../../assets/icons/calendar.png"),
+  caretDown2: require("../../assets/icons/caretDown2.png")
 }
 
 const $imageStyle: ImageStyle = {  

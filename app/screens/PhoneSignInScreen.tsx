@@ -25,7 +25,7 @@ export const PhoneSignInScreen: FC<PhoneSignInScreenProps> = observer(function P
       setError("IncorrectInfo")
       return
     }
-    navigation.navigate("Login")
+    navigation.navigate("MainPage", {screen: "Wallet"})
   }
 
   return (

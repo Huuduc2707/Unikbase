@@ -35,7 +35,7 @@ export const ForgotPasswordModal = observer(function ForgotPasswordModal(props: 
   }
 
   return (
-    <Modal style={$styles} isVisible={isVisible} coverScreen={false} onBackdropPress={()=>setIsVisible(false)}>
+    <Modal style={$styles} isVisible={isVisible} coverScreen={false} onBackdropPress={()=>setIsVisible(false)} backdropTransitionOutTiming={0}>
       <View style={$iconContainer}>
         <Icon style={$arrowIcon} icon="tlc"/>
         <Icon style={$arrowIcon} icon="trc"/>
