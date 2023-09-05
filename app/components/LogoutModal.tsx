@@ -37,14 +37,14 @@ export const LogoutModal = observer(function LogoutModal(props: LogoutModalProps
             style={$confirmButton} 
             tx={"common.button.confirm"} 
             textStyle={$buttonText} 
-            pressedStyle={$buttonPressed} 
+            pressedStyle={$confirmButtonPressed} 
             onPress={()=>navigation.navigate("Login")}
           />
           <Button 
             style={$cancelButton} 
             tx={"common.button.cancel"} 
             textStyle={$buttonText} 
-            pressedStyle={$buttonPressed} 
+            pressedStyle={$cancelButtonPressed} 
             onPress={()=>setVisibility(false)}
           />
         </View>
@@ -114,7 +114,12 @@ const $buttonText: TextStyle = {
   textAlignVertical: 'center'
 }
 
-const $buttonPressed: ViewStyle = {
+const $confirmButtonPressed: ViewStyle = {
   backgroundColor: "#F14300",
-  opacity: 0.7,
+  opacity: 0.7
+}
+
+const $cancelButtonPressed: ViewStyle = {
+  backgroundColor: '#041C25',
+  opacity: 0.7
 }

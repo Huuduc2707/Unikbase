@@ -170,9 +170,61 @@ const en = {
       edit: "edit"
     },
     more: {
-      logout: "Are you sure you want to logout?"
+      logout: "Are you sure you want to logout?",
+      scanNFCTag: {
+        readyToScan: "Ready to Scan",
+        scanInform: "Hold your device near the NFC tag on the object to scan."
+      },
+      FAQ: {
+        frequentlyAskedQuestion: "Frequently Asked Questions",
+        introText: "A short introdction to digital twins: everything you need to know when signing up for Unikbase solution. If you cannot find the answer you are looking for, please contact our support.",
+        question: {
+          question1: "What is a DigitalTwin?",
+          question2: "What are some important things to know about digital twins?",
+          question3: "What make my digital twin behave like a passport, and why?",
+          question4: "I own avaluable: Why own a digital twin of it?",
+          question5: "I'm a merchant: why propose digital twins to my customers?",
+          question6: "How are my digital twin and my real-life collectible connected?",
+          question7: "Can I use my digital twin to insure my valuable, or to report it stolen?",
+          question8: "What are the environmental costs of creating a digital twin?",
+          question9: "What is a Blockchain?"
+        },
+        answer: {
+          shortAnswer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu sem convallis, aliquet nisi quis, semper risus. Morbi sed magna augue.",
+          mediumAnswer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu sem convallis, aliquet nisi quis, semper risus. Morbi sed magna augue. In finibus tortor nec consequat ultrices. Mauris dapibus condimentum est et sagittis. Morbi erat augue, fringilla vitae interdum ut, congue eu augue. Phasellus lacinia mollis dui, id porta nulla. Maecenas vitae molestie nibh. Morbi id finibus massa. Nullam non turpis venenatis, placerat lorem at, tristique erat. Aliquam eu magna vel orci varius mattis. Donec varius nulla eget turpis maximus pretium. Curabitur a malesuada turpis, ac posuere nibh. Pellentesque porta justo vitae turpis laoreet ullamcorper. In hac habitasse platea dictumst. Fusce sit amet erat consectetur, aliquet ipsum vel, aliquam neque. Ut ut augue justo. Suspendisse potenti. Vestibulum blandit, mauris non auctor mattis, felis mi tempor massa, suscipit scelerisque elit diam a neque.",
+          longAnswer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu sem convallis, aliquet nisi quis, semper risus. Morbi sed magna augue. In finibus tortor nec consequat ultrices. Mauris dapibus condimentum est et sagittis. Morbi erat augue, fringilla vitae interdum ut, congue eu augue. Phasellus lacinia mollis dui, id porta nulla. Maecenas vitae molestie nibh. Morbi id finibus massa. Nullam non turpis venenatis, placerat lorem at, tristique erat. Aliquam eu magna vel orci varius mattis. Donec varius nulla eget turpis maximus pretium. Curabitur a malesuada turpis, ac posuere nibh. Pellentesque porta justo vitae turpis laoreet ullamcorper. In hac habitasse platea dictumst. Fusce sit amet erat consectetur, aliquet ipsum vel, aliquam neque. Ut ut augue justo. Suspendisse potenti. Vestibulum blandit, mauris non auctor mattis, felis mi tempor massa, suscipit scelerisque elit diam a neque. Sed tempus nulla ac lectus gravida, sit amet consectetur sem cursus. Nullam dolor lorem, ultricies vitae urna vitae, vehicula aliquam sapien. Cras semper enim in lectus dignissim varius. Cras rutrum arcu ac libero vehicula accumsan. Aenean feugiat nisl nec aliquam dictum. Vivamus dignissim, mi quis ultricies gravida, enim ante pretium nunc, vitae maximus eros nisi sodales purus."
+        }, 
+      },
+      privacyAndPolicy: {
+        intro: "We at UNIKBASE are committed to protecting your privacy. This Privacy Policy applies to both our Website and our Subscription Service (the Subscription Service). This Privacy Policy governs our data collection, processing and usage practices. It also describes your choices regarding use, access and correction of your personal information. If you do not agree with the data practices described in this Privacy Policy, you should not use the Website or the Subscription Service. We encourage you to review this Privacy Policy periodically. If you have any question about this Privacy Policy or our treatment of the information you provide us, please write to us by email at hello@unikbase.com or by mail to UNIKBASE, 320 RUE SAINT HONORE 75001 PARIS 1, RCS Paris 922 272 794, Attn: Privacy.",
+        policyHeader: {
+          header1: "USE OF THE SUBSCRIPTION SERVICE",
+          header2: "INFORMATION WE COLLECT"
+        },
+        policySubHeader: {
+          subHeader1: "When you visit our website"
+        },
+        policyContent: {
+          content1: "The UNIKBASE Subscription Service allows us to create and share marketing, sales and customer service content. The Subscription Service can also be used to help organize sales data about a company's sales pipeline (e.g., leads, customers, token deals, etc.). The information added to the Subscription Service, either by site visitors providing their contact information or when a Subscription Service user adds the information, is stored and managed on our service providers' servers. The information is then used to contact visitors about their in the company's goods and interact with the company. Information that we collect and manage using the Subscription Service for our own marketing belongs to us and is used, disclosed and protected according to this Privacy Policy.",
+          content2: "You are free to explore the Website without providing any Personal Information about yourself. When you visit the Website or register for the Subscription Service, we request that you provide Personal Information about yourself, and we collect Navigational information."
+        }
+      },
+      termAndCondition: {
+        termOfUse: "Terms of use",
+        header: {
+          header1: "TERMS OF USE",
+          header2: "LEGAL NOTICE",
+          header3: "COPYRIGHT, TRADEMARKS AND OTHER INTELLECTUAL PROPERTY RIGHTS",
+          header4: "WARRANTY AND LIABILITY EXCLUSIONS"
+        },
+        content: {
+          content1: "The purpose of these Terms of Use is to define the terms and conditions of access and use ofthe site https://www.unikbase.com (hereinafter the \"Site\").The use of the Site is subject to compliance with these Terms of Use, which all users acknowledge that they accept unreservedly by the mere fact of accessing the said Site. Any user who does not wish to be bound by these Terms of Use must immediately renounce remaining on the Site and immediately cease using it.",
+          content2: "The Site is published by Unikbase, a company with a capital of 350,000 euros and whose registered office is located at 320 RUE SAINT HONORE 75001 PARIS 1, RCS 922 272 794, which can be reached at hello@unikbase.com (hereinafter \"UNIKBASE\"). The Site is hosted by MANATY whose registered office is located at xxx and can be reached at cotact@manaty.com",
+          content3: "This Site and its contents are protected by copyright and/or other intellectual property rights which are the property of UNIKBASE or third parties.The reproduction and use of the elements of this Site (and any information incorporated therein such as, without limitation, articles, graphic images, photographs, diagrams, video recordings...) are authorised provided that :-this reproduction and use are strictly for information, non-commercial purposes within your organisation to enable you to get to know UNIKBASE better; and,- all mentions of UNIKBASE and in particular copyright notices appear on any reproduction; and,-the elements and information are not modified in whole or in part and in any way what soeeer; and- any other right of reproduction and/or use is expressly prohibited. In addition, some of the names mentioned may be protected by trademarks that are the property of UNIKBASE or third parties without necessarily mentioning this protection.",
+          content4: "The elements of this Site are provided for general information purposes only and cannot be used as a basis for any transaction. All or any of the information published on this Site is provided \"as is\"without warranty of."
+        }
+      }
     }
-
   }
 }
 

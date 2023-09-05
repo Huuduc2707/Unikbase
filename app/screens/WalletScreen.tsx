@@ -2,7 +2,7 @@ import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, StatusBar, View, ScrollView, Dimensions, TextStyle, ImageStyle, TouchableOpacity, Image } from "react-native"
 import { Screen, Text, Icon, Button, SearchModal } from "app/components"
-import Clipboard from '@react-native-clipboard/clipboard';
+import * as Clipboard from 'expo-clipboard';
 import { Popover } from "react-native-popable"
 // import { useStores } from "app/models"
 
@@ -17,7 +17,7 @@ export const WalletScreen: FC<WalletScreenProps> = observer(function WalletScree
 
   function copyToClipboard(){
     setIsCopied(true)
-    Clipboard.setString(hexCode)
+    Clipboard.setStringAsync(hexCode)
     setTimeout(()=>setIsCopied(false), 1500)
   }
 
@@ -86,7 +86,7 @@ export const WalletScreen: FC<WalletScreenProps> = observer(function WalletScree
 
 
 
-const {width, height, fontScale} = Dimensions.get("window")
+const {width, height, fontScale} = Dimensions.get("screen")
 // Styling zone
 const $root: ViewStyle = {
   flex: 1,
@@ -252,7 +252,7 @@ const $scrollViewContainer: ViewStyle = {
 
 const $emptyWalletImage: ImageStyle = {
   width: width*1,
-  height: height*0.3,
+  height: height*0.28,
   marginTop: 30
 }
 

@@ -129,7 +129,9 @@ export const iconRegistry = {
   add: require("../../assets/icons/add.png"),
   search2: require("../../assets/icons/search2.png"),
   calendar: require("../../assets/icons/calendar.png"),
-  caretDown2: require("../../assets/icons/caretDown2.png")
+  caretDown2: require("../../assets/icons/caretDown2.png"),
+  caretLeft2: require("../../assets/icons/caretLeft2.png"),
+  downArrow: require("../../assets/icons/downArrow.png")
 }
 
 const $imageStyle: ImageStyle = {  

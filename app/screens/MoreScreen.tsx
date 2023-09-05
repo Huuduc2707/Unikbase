@@ -61,8 +61,8 @@ const $root: ViewStyle = {
 
 const $title: TextStyle = {
   color: 'white',
-  fontSize: 27 / fontScale,
-  lineHeight: 26,
+  fontSize: 25 / fontScale,
+  lineHeight: 25,
   marginTop: height*0.06,
   alignSelf: 'center',
   paddingBottom: 26
