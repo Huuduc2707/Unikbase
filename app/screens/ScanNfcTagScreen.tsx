@@ -1,10 +1,10 @@
 /* eslint-disable object-shorthand */
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, StatusBar, Dimensions, View, TextStyle, ImageStyle, TouchableOpacity, Image } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
-import { Screen, Text, Icon } from "app/components"
+import { Screen, Text, Icon, UnknownTagModal } from "app/components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
 
@@ -13,8 +13,7 @@ interface ScanNfcTagScreenProps extends NativeStackScreenProps<AppStackScreenPro
 export const ScanNfcTagScreen: FC<ScanNfcTagScreenProps> = observer(function ScanNfcTagScreen() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
-
-  // Pull in navigation via hook
+  const [isVisible, setIsVisible] = useState(false)
   const navigation = useNavigation()
   return (
     <Screen style={$root} preset="fixed">
@@ -28,12 +27,13 @@ export const ScanNfcTagScreen: FC<ScanNfcTagScreenProps> = observer(function Sca
 
       {/* Main content */}
       <View style={$bodyContainer}>
-        <TouchableOpacity activeOpacity={0.7}>
+        <TouchableOpacity activeOpacity={0.7} onPress={()=>setIsVisible(true)}>
           <Text style={$scanButton} tx={"mainpageNavigator.more.scanNFCTag.readyToScan"}/>
         </TouchableOpacity>
         <Image style={$image} source={require("../../assets/images/scanNFCTag.png")} resizeMode="contain"/>
         <Text style={$informText} tx={"mainpageNavigator.more.scanNFCTag.scanInform"}/>
       </View>
+      <UnknownTagModal visibility={isVisible} setVisibility={setIsVisible}/>
     </Screen>
   )
 })

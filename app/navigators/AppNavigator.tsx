@@ -52,6 +52,13 @@ export type AppStackParamList = {
 	Faq: undefined
 	PrivacyPolicy: undefined
 	TermsAndConditions: undefined
+	DigitalTwin: undefined
+	Document: undefined
+	ImageDetail: undefined
+	SelectCoverImage: undefined
+	Gallery: undefined
+	Specification: undefined
+	Object: undefined
 	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -75,24 +82,31 @@ const AppStack = observer(function AppStack() {
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
       initialRouteName="Login"
     >
-      {/** 🔥 Your screens go here */}
-      <Stack.Screen name="Login" component={Screens.LoginScreen} />
-			<Stack.Screen name="Register" component={Screens.RegisterScreen} />
-			<Stack.Screen name="EmailSignIn" component={Screens.EmailSignInScreen} />
-			<Stack.Screen name="PhoneSignIn" component={Screens.PhoneSignInScreen} />
-			<Stack.Screen name="EmailVerifyAccount" component={Screens.EmailVerifyAccountScreen} />
-			<Stack.Screen name="PhoneVerifyAccount" component={Screens.PhoneVerifyAccountScreen} />
-			<Stack.Screen name="CompleteVerifyAccount" component={Screens.CompleteVerifyAccountScreen} />
-      <Stack.Screen name="MainPage" component={MainPageNavigator} />
-			<Stack.Screen name="Details" component={Screens.DetailsScreen} />
-			<Stack.Screen name="ChangePassword" component={Screens.ChangePasswordScreen} />
-			<Stack.Screen name="Language" component={Screens.LanguageScreen} />
-			<Stack.Screen name="Account" component={Screens.AccountScreen} />
-			<Stack.Screen name="ScanNfcTag" component={Screens.ScanNfcTagScreen} />
-			<Stack.Screen name="Faq" component={Screens.FaqScreen} />
-			<Stack.Screen name="PrivacyPolicy" component={Screens.PrivacyPolicyScreen} />
-			<Stack.Screen name="TermsAndConditions" component={Screens.TermsAndConditionsScreen} />
-			{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
+      	{/** 🔥 Your screens go here */}
+    	<Stack.Screen name="Login" component={Screens.LoginScreen} />
+		<Stack.Screen name="Register" component={Screens.RegisterScreen} />
+		<Stack.Screen name="EmailSignIn" component={Screens.EmailSignInScreen} />
+		<Stack.Screen name="PhoneSignIn" component={Screens.PhoneSignInScreen} />
+		<Stack.Screen name="EmailVerifyAccount" component={Screens.EmailVerifyAccountScreen} />
+		<Stack.Screen name="PhoneVerifyAccount" component={Screens.PhoneVerifyAccountScreen} />
+		<Stack.Screen name="CompleteVerifyAccount" component={Screens.CompleteVerifyAccountScreen} />
+      	<Stack.Screen name="MainPage" component={MainPageNavigator} />
+		<Stack.Screen name="Details" component={Screens.DetailsScreen} />
+		<Stack.Screen name="ChangePassword" component={Screens.ChangePasswordScreen} />
+		<Stack.Screen name="Language" component={Screens.LanguageScreen} />
+		<Stack.Screen name="Account" component={Screens.AccountScreen} />
+		<Stack.Screen name="ScanNfcTag" component={Screens.ScanNfcTagScreen} />
+		<Stack.Screen name="Faq" component={Screens.FaqScreen} />
+		<Stack.Screen name="PrivacyPolicy" component={Screens.PrivacyPolicyScreen} />
+		<Stack.Screen name="TermsAndConditions" component={Screens.TermsAndConditionsScreen} />
+		<Stack.Screen name="DigitalTwin" component={Screens.DigitalTwinScreen} />
+		<Stack.Screen name="Document" component={Screens.DocumentScreen} />
+		<Stack.Screen name="ImageDetail" component={Screens.ImageDetailScreen} />
+		<Stack.Screen name="SelectCoverImage" component={Screens.SelectCoverImageScreen} />
+		<Stack.Screen name="Gallery" component={Screens.GalleryScreen} />
+		<Stack.Screen name="Specification" component={Screens.SpecificationScreen} />
+		<Stack.Screen name="Object" component={Screens.ObjectScreen} />
+		{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )
 })

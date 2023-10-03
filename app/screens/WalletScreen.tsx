@@ -1,9 +1,11 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, StatusBar, View, ScrollView, Dimensions, TextStyle, ImageStyle, TouchableOpacity, Image } from "react-native"
-import { Screen, Text, Icon, Button, SearchModal } from "app/components"
+import { Screen, Text, Icon, Button, SearchModal, TokenBox, Token, TokenCreateModal, CongratsModal } from "app/components"
 import * as Clipboard from 'expo-clipboard';
 import { Popover } from "react-native-popable"
+import { TxKeyPath } from "app/i18n";
 // import { useStores } from "app/models"
 
 interface WalletScreenProps {}
@@ -11,9 +13,51 @@ interface WalletScreenProps {}
 export const WalletScreen: FC<WalletScreenProps> = observer(function WalletScreen() {
   const [hexCode, _] = useState("0x556295de2529b8e0988d2c8df6724bbf695380ee")
   const [isVisible, setIsVisible] = useState(false)
+  const [isTokenCreateModalVisible, setIsTokenCreateModalVisible] = useState(false)
+  const [isCongratsModalVisible, setIsCongratsModalVisible] = useState(false)
   const [isCopied, setIsCopied] = useState(false)
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
+  const digitalTwinStatus: TxKeyPath[] = [
+    "mainpageNavigator.wallet.checkBoxValue.active", 
+    "mainpageNavigator.wallet.checkBoxValue.transferring", 
+    "mainpageNavigator.wallet.checkBoxValue.refused"
+  ]
+  const tokenOperatorStatus: TxKeyPath[] = [
+    "mainpageNavigator.wallet.checkBoxValue.owned",
+    "mainpageNavigator.wallet.checkBoxValue.managed"
+  ]
+  const data: Token[] = [
+    {
+      name: "Object title",
+      operator: "ThePackengers",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In commodo pellentesque nulla, interdum sagittis neque tincidunt eget.",
+      coverImage: require("../../assets/images/coverChair.png"),
+      digitalTwinStatus: digitalTwinStatus[1],
+      tokenOperatorStatus: tokenOperatorStatus[0]
+    },
+    {
+      name: "Object title",
+      operator: "ThePackengers",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In commodo pellentesque nulla, interdum sagittis neque tincidunt eget.",
+      coverImage: require("../../assets/images/coverVase.png"),
+      digitalTwinStatus: digitalTwinStatus[1],
+      tokenOperatorStatus: tokenOperatorStatus[1]
+    },
+    {
+      name: "Object title",
+      operator: "ThePackengers",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In commodo pellentesque nulla, interdum sagittis neque tincidunt eget.",
+      coverImage: require("../../assets/images/coverArt.png"),
+      tokenOperatorStatus: tokenOperatorStatus[1]
+    },
+    {
+      name: "Object title",
+      operator: "ThePackengers",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In commodo pellentesque nulla, interdum sagittis neque tincidunt eget.",
+      coverImage: require("../../assets/images/coverArt2.png"),
+    },
+  ]
 
   function copyToClipboard(){
     setIsCopied(true)
@@ -71,15 +115,23 @@ export const WalletScreen: FC<WalletScreenProps> = observer(function WalletScree
             tx={"common.button.createDigitalTwin"} 
             RightAccessory={()=>(
               <Icon style={$addIcon} icon="add"/>
-            )}  
+            )}
+            onPress={()=>setIsTokenCreateModalVisible(true)}
           />
-          <ScrollView contentContainerStyle={$scrollViewContainer}>
-              <Image style={$emptyWalletImage} source={require("../../assets/images/emptyWallet.png")} resizeMode="contain" />
-              <Text style={$emptyWalletText} tx={"mainpageNavigator.wallet.emptyWallet"}/>
+          <ScrollView contentContainerStyle={$scrollViewContainer} style={{marginVertical: 8}}>
+            {/* <Image style={$emptyWalletImage} source={require("../../assets/images/emptyWallet.png")} resizeMode="contain" />
+            <Text style={$emptyWalletText} tx={"mainpageNavigator.wallet.emptyWallet"}/> */}
+            {
+              data.map((value, index)=>(
+                <TokenBox key={index} data={value}/>
+              ))
+            }
           </ScrollView>
         </View>
       </View>
       <SearchModal visibility={isVisible} setVisibility={setIsVisible}/>
+      <TokenCreateModal visibility={isTokenCreateModalVisible} setVisibility={setIsTokenCreateModalVisible} setSubModalVisibility={setIsCongratsModalVisible}/>
+      <CongratsModal visibility={isCongratsModalVisible} setVisibility={setIsCongratsModalVisible}/>
     </Screen>
   )
 })
@@ -244,16 +296,16 @@ const $addIcon: ImageStyle = {
 }
 
 const $scrollViewContainer: ViewStyle = {
-  width: '100%',
-  marginTop: 8,
+  width: width*0.95,
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  gap: 10
 }
 
 const $emptyWalletImage: ImageStyle = {
   width: width*1,
   height: height*0.28,
-  marginTop: 30
+  marginTop: 22
 }
 
 const $emptyWalletText: TextStyle = {
@@ -261,6 +313,6 @@ const $emptyWalletText: TextStyle = {
   lineHeight: 20,
   textAlign: 'center',
   width: width*0.8,
-  marginTop: 27,
-  paddingBottom: 40
+  marginTop: 17,
+  paddingBottom: 32
 }

@@ -16,6 +16,7 @@ export interface FieldHeaderBarProps {
    * An optional style override useful for padding & margin.
    */
   style?: StyleProp<ViewStyle>
+  headerTextStyle?: StyleProp<TextStyle>
   tx?: TxKeyPath
   destinationSreen?: string
   fieldContent?: FieldContent[]
@@ -26,21 +27,25 @@ export interface FieldHeaderBarProps {
  * Describe your component here
  */
 export const FieldHeaderBar = observer(function FieldHeaderBar(props: FieldHeaderBarProps) {
-  const { style, tx, destinationSreen, fieldContent, lineBetweenContent } = props
+  const { style, tx, destinationSreen, fieldContent, lineBetweenContent, headerTextStyle } = props
   const navigation = useNavigation()
 
   return (
     <View style={style}>
       <View style={$headercontainer}>
         <View style={$header}>
-          <Text style={$headerLabel} tx={tx}/>
+          <Text style={[$headerLabel, headerTextStyle]} tx={tx}/>
           <TouchableOpacity activeOpacity={0.7} onPress={()=>navigation.navigate(destinationSreen)}>
-            <Text style={$editButton} tx={"mainpageNavigator.profile.edit"}/>
+           {
+            destinationSreen &&
+            <Text style={[$editButton, headerTextStyle]} tx={"mainpageNavigator.profile.edit"}/>
+           }
           </TouchableOpacity>
         </View>
       </View>
       <View>
         {
+          fieldContent &&
           fieldContent.map((value, index)=>(
             <View key={(index+1)*10}>
               {
@@ -88,6 +93,7 @@ const $line: ViewStyle = {
   width: '90%',
   backgroundColor: '#E5E8E9',
   borderColor: '#E5E8E9',
+  borderWidth: 0.7,
   alignSelf: 'center',
   marginVertical: 11
 }

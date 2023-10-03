@@ -8,6 +8,7 @@ import { Icon } from "app/components/Icon"
 import { Line } from "app/components/Line"
 import { TextField } from "app/components/TextField"
 import { Button } from "app/components/Button"
+import { OperatorModal } from "app/components/OperatorModal"
 import Modal from "react-native-modal"
 import { Formik } from "formik"
 import Checkbox from "expo-checkbox"
@@ -29,6 +30,7 @@ export interface SearchModalProps {
 export const SearchModal = observer(function SearchModal(props: SearchModalProps) {
   const { style, visibility, setVisibility } = props
   const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false)
+  const [isOperatorModalVisible, setIsOperatorModalVisible] = useState(false)
   const $styles = [$container, style]
 
   const digitalTwinStatusValue: TxKeyPath[] = [
@@ -109,11 +111,14 @@ export const SearchModal = observer(function SearchModal(props: SearchModalProps
                     <DateTimePicker
                     mode="date"
                     value={values.date===""?new Date(): new Date(values.date)}
-                    onChange={(event, date)=>{setIsDateTimePickerVisible(false); setFieldValue('date', date.toString())}}
+                    onChange={(event, date)=>{
+                      setIsDateTimePickerVisible(false)
+                      if(event.type!=="dismissed") setFieldValue('date', date)
+                    }}
                   />
                   }
 
-                  <TouchableOpacity activeOpacity={0.7}>
+                  <TouchableOpacity activeOpacity={0.7} onPress={()=>setIsOperatorModalVisible(true)}>
                     <TextField
                       inputWrapperStyle={[$inputField]}
                       style={$inputText}
@@ -200,6 +205,7 @@ export const SearchModal = observer(function SearchModal(props: SearchModalProps
                     onPress={()=>handleSubmit()}
                   />
                 </View>
+                <OperatorModal visibility={isOperatorModalVisible} setVisibility={setIsOperatorModalVisible} setNewValue={setFieldValue}/>
               </View>
             )}
           </Formik>
@@ -273,7 +279,8 @@ const $inputField: ViewStyle = {
 }
 
 const $inputText: TextStyle = {
-  height: '100%'
+  height: '100%',
+  color: 'black'
 }
 
 const $inputFieldIcon: ImageStyle = {

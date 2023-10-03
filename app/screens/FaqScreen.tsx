@@ -104,7 +104,8 @@ const $bodyContainer: ViewStyle = {
 
 const $subHeaderText: TextStyle = {
   marginTop: 21,
-  fontSize: 20 / fontScale
+  fontSize: 20 / fontScale,
+  fontWeight: 'bold'
 }
 
 const $introText: TextStyle = {

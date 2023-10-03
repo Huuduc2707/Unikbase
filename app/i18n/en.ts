@@ -15,7 +15,19 @@ const en = {
     createDigitalTwin: "CREATE DIGITAL TWIN",
     clearAll: "ClearAll",
     apply: "APPLY",
-    confirm: "CONFIRM"
+    confirm: "CONFIRM",
+    deleteAccount: "DELETE ACCOUNT",
+    save: "SAVE",
+    changePassword: "CHANGE PASSWORD",
+    filter: "FILTERS",
+    goToDigitalTwin: "GO TO DIGITAL TWIN",
+    change: "Change >",
+    addPhoto: "Add Photos",
+    deletePhoto: "Delete this photo",
+    scanAnother: "SCAN ANOTHER NFC TAG",
+    cancel2: "Cancel",
+    addMoreDocument: "ADD MORE DOCUMENT",
+    uploadDocument: "UPLOAD DOCUMENT"
    },
    error: {
       invalidUsername: "Your username is invalid.",
@@ -31,7 +43,10 @@ const en = {
       incorrectPhoneNumberOrPassword: "Incorrect phone number or password.",
       verifyEmailFailed: "Verify email failed!",
       verifyPhoneNumberFailed: "Verify phone number failed!",
-      noResultFound: "No result matches the given keyword."
+      noResultFound: "No result matches the given keyword.",
+      incorrectPassword: "Incorrect password.",
+      invalidNewPassword: "Invalid new password.",
+      noDocument: "You must have at least 1 document"
     },
     success: {
       verifyEmailSuccess: "Verify email success!",
@@ -46,7 +61,9 @@ const en = {
       countryName: "Country name",
       search: "Search",
       createAt: "Created At",
-      operator: "Operator"
+      operator: "Operator",
+      choosePhoto: "Choose Photo",
+      downloadImage: "Download Image"
     },
     textAndLink: {
       privacyPolicies: "Privacy Policies",
@@ -60,7 +77,8 @@ const en = {
       informEmailCodeText: "We have sent a 6-character code to {{email}}. The code expires shortly, so please enter it soon.",
       informPhoneNumberCodeText: "We have sent a 6-character code to {{phoneNumber}}. The code expires shortly, so please enter it soon.",
       checkSpamFolder: "Can't find your code? Check your spam folder!",
-      warning: "Hey there, just a heads up!"
+      warning: "Hey there, just a heads up!",
+      completedCreatingDigitalTwin: "You've successfully created a Digital Twin for {{name}}."
     },
     formName: {
       createAccount: "Create Account",
@@ -68,7 +86,11 @@ const en = {
       emailVerification: "Check your email for a code",
       phoneNumberVerification: "Check your mobile for a code",
       congratulations: "Congratulations!",
-      search: "Search"
+      search: "Search",
+      filter: "Filters",
+      confirmDeletion: "Confirm deletion?",
+      newDocumentName: "Enter New Document Name",
+      uploadDocument: "Upload New Document"
     },
     formLabel: {
       email: "Email",
@@ -83,7 +105,31 @@ const en = {
       lastName: "Last Name",
       profileImage: "Profile Image",
       newPassword: "New Password",
-      confirmNewPassword: "Confirm New Password"
+      confirmNewPassword: "Confirm New Password",
+      newPasswword: "New Password",
+      search: "Search",
+      period: "Period",
+      operator: "Operator",
+      id: "ID",
+      tagRef: "Tag Ref.",
+      digitalTwinName: "Digital Twin Name",
+      description: "Description",
+      coverImage: "Cover Image",
+      name: "Name",
+      creationDate: "Creation Date",
+      price: "Price",
+      size: "Size",
+      length: "Length",
+      width: "Width",
+      depth: "Depth",
+      weight: "Weight",
+      gallery3D: "3D Gallery",
+      certificate: "Certificate",
+      gallery: "Gallery",
+      invoice: "Invoice",
+      caption: "Caption",
+      selectDocument: "Select Document",
+      selectCategory: "Please select a category"
     }
   },
   // welcomeScreen: {
@@ -135,11 +181,26 @@ const en = {
       FAQ: "FAQ",
       privacyPolicy: "Privacy Policy",
       termAndCondition: "Terms & Conditions",
-      logout: "Logout"
+      logout: "Logout",
+      detail: "Details",
+      changePassword: "Change Password",
+      language: "Language",
+      account: "Account",
+      digitalTwin: "DigitalTwin",
+      object: "Object",
+      document: "Documents",
+      updatedDate: "Updated {{date}}",
+      selectCoverImage: "Select a Cover Image",
+      gallery: "Gallery",
+      specification: "Specifications",
+      coverImage: "Cover Image",
+      galleryImage: "Gallery Images",
+      chooseCoverImage: "Choose one that best highlights your object"
     },
     wallet: {
       copied: "Copied to clipboard !",
       titleBar: "My Digital Twins",
+      comingSoon: "Coming Soon",
       emptyWallet: "Here is where you can access and manage the Digital Twins you've created.",
       checkboxFieldTitle: {
         digitalTwinStatus: "DigitalTwin Status",
@@ -155,10 +216,76 @@ const en = {
         public: "Public",
         owned: "Owned",
         managed: "Managed"
+      },
+      operatorValue: {
+        topup: "Topup",
+        createWallet: "Create wallet",
+        createToken: "Create token",
+        acceptToken: "Accept token",
+        transferTokenRequest: "Transfer token request",
+        updateToken: "Update token",
+        create3DScan: "Create 3D scan",
+        operatorChange: "Operator change",
+        bridgeEthereum: "Bridge ethereum"
+      },
+      feature: {
+        document: "Documents",
+        transfer: "Transfer DigitalTwin",
+        share: "ShareTwin Information",
+        scan: "3D Scan",
+        link: "Link NFCTag",
+        verify: "Verify NFCTag",
+        insurance: "Buy Insurance",
+        report: "Incident Report"
+      },
+      documentCategory: {
+        gallery3D: "3D Gallery",
+        certificate: "Certificate",
+        coverImage: "Cover Image",
+        gallery: "Gallery",
+        invoice: "Invoice",
+        markProof: "Mark Proofs",
+        otherDocument: "Other Documents"
       }
     },
     history: {
-      emptyHistory: "Here is where you will find your transaction history, you haven't made any transactions yet."
+      emptyHistory: "Here is where you will find your transaction history, you haven't made any transactions yet.",
+      tokenHistory: {
+        status: {
+          confirmed: "Confirmed",
+          refused: "Refused"
+        },
+        operator: {
+          tokenCreation: "TOKEN CREATION",
+          tokenReceipt: "TOKEN RECEIPT",
+          tokenAccepted: "TOKEN ACCEPTED",
+          documentUploaded: "DOCUMENT UPLOADED"
+        },
+        checkboxValue: {
+          tokenCreation: "Token creation",
+          tokenTransfer: "Token transfer",
+          tokenReceipt: "Token receipt",
+          tokenAccepted: "Token accepted",
+          tokenRefused: "Token refused",
+          tokenSent: "Token sent",
+          documentUploaded: "Document uploaded",
+          documentDeleted: "Document deleted",
+          informationAdded: "Information added",
+          informationDeleted: "Information deleted",
+          informationModified: "Information modified",
+          operatorChange: "Operator change"
+        },
+        detailHeader: {
+          digitalTwinName: "Digital Twin Name",
+          status: "Status",
+          date: "Date",
+          from: "From",
+          to: "To",
+          amount: "Amount",
+          transactionFee: "Transaction fee",
+          totalAmount: "Total amount"
+        }
+      }
     },
     profile: {
       headerBarLabel: {
@@ -167,13 +294,38 @@ const en = {
         language: "Language",
         account: "Account"
       },
-      edit: "edit"
+      edit: "edit",
+      detail: {
+        profileDetail: "Profile Details",
+        contactDetail: "Contact Details"
+      },
+      changePassword: {
+        changePassword: "Change Password",
+        informText: "Kindly ensure that your password consists of at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number."
+      },
+      language: {
+        languageSetting: "Language Settings",
+        unit: "Units",
+        languageValue: {
+          english: "English",
+          french: "French"
+        },
+        unitValue: {
+          metric: "Metric",
+          imperial: "Imperial"
+        }
+      },
+      account: {
+        deleteAccount: "Delete Account",
+        informText: "Deleting your account will permanently remove all of your information from our servers."
+      }
     },
     more: {
       logout: "Are you sure you want to logout?",
       scanNFCTag: {
         readyToScan: "Ready to Scan",
-        scanInform: "Hold your device near the NFC tag on the object to scan."
+        scanInform: "Hold your device near the NFC tag on the object to scan.",
+        unknownNFCTag: "Unknown NFC Tag"
       },
       FAQ: {
         frequentlyAskedQuestion: "Frequently Asked Questions",

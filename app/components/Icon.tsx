@@ -131,7 +131,31 @@ export const iconRegistry = {
   calendar: require("../../assets/icons/calendar.png"),
   caretDown2: require("../../assets/icons/caretDown2.png"),
   caretLeft2: require("../../assets/icons/caretLeft2.png"),
-  downArrow: require("../../assets/icons/downArrow.png")
+  downArrow: require("../../assets/icons/downArrow.png"),
+  image: require("../../assets/icons/image.png"),
+  filter: require("../../assets/icons/filter.png"),
+  upload: require("../../assets/icons/upload.png"),
+  download: require("../../assets/icons/download.png"),
+  caretDown3: require("../../assets/icons/caretDown3.png"),
+  roundX: require("../../assets/icons/roundX.png"),
+  zoom: require("../../assets/icons/zoom.png"),
+  length: require("../../assets/icons/length.png"),
+  width: require("../../assets/icons/width.png"),
+  weight: require("../../assets/icons/weight.png"),
+  depth: require("../../assets/icons/depth.png"),
+  roundMore: require("../../assets/icons/roundMore.png"),
+  document: require("../../assets/icons/document.png"),
+  transfer: require("../../assets/icons/transfer.png"),
+  share: require("../../assets/icons/share.png"),
+  scan: require("../../assets/icons/scan.png"),
+  link: require("../../assets/icons/link.png"),
+  insurance: require("../../assets/icons/insurance.png"),
+  report: require("../../assets/icons/report.png"),
+  eye: require("../../assets/icons/eye.png"),
+  pencil: require("../../assets/icons/pencil.png"),
+  download2: require("../../assets/icons/download2.png"),
+  trash: require("../../assets/icons/trash.png"),
+  roundX2: require("../../assets/icons/roundX2.png")
 }
 
 const $imageStyle: ImageStyle = {  

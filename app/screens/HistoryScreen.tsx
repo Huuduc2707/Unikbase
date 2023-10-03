@@ -1,8 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable object-shorthand */
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { TextStyle, ViewStyle, StatusBar, Dimensions, View, Image, ImageStyle } from "react-native"
-import { Screen, Text } from "app/components"
+import { TextStyle, ViewStyle, StatusBar, Dimensions, View, Image, ImageStyle, ScrollView } from "react-native"
+import { Screen, Text, Button, Icon, HistoryBox, TokenHistory, FilterModal } from "app/components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
 
@@ -11,6 +12,66 @@ interface HistoryScreenProps {}
 export const HistoryScreen: FC<HistoryScreenProps> = observer(function HistoryScreen() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
+  const [isFilterModalVisibile, setIsFilterModalVisible] = useState(false)
+
+  const data: TokenHistory[] = [
+    {
+      id: '402',
+      date: new Date("2023-03-23T10:30:31"),
+      status: 0,
+      operator: 0,
+      tokenName: 'Apple Macbook Pro',
+      senderID: '0x850243759A435UX432B321',
+      receiverID: '0x850243759A435UX432B321',
+      amount: 1758.42,
+      transactionFee: 0
+    },
+    {
+      id: '203',
+      date: new Date("2023-03-14T18:32:27"),
+      status: 0,
+      operator: 1,
+      tokenName: 'Grashopper Lamp',
+      senderID: '0x850243759A435UX432B321',
+      receiverID: '0x850243759A435UX432B321',
+      amount: 1758.42,
+      transactionFee: 0
+    },
+    {
+      id: '198',
+      date: new Date("2023-02-28T15:00:15"),
+      status: 1,
+      operator: 2,
+      tokenName: 'Hippopotamus figurine',
+      senderID: '0x850243759A435UX432B321',
+      receiverID: '0x850243759A435UX432B321',
+      amount: 1758.42,
+      transactionFee: 0
+    },
+    {
+      id: '282',
+      date: new Date("2023-01-02T21:49:50"),
+      status: 0,
+      operator: 2,
+      tokenName: 'Kaleido Tray',
+      senderID: '0x850243759A435UX432B321',
+      receiverID: '0x850243759A435UX432B321',
+      amount: 1758.42,
+      transactionFee: 0
+    },
+    {
+      id: '111',
+      date: new Date("2023-12-28T12:12:12"),
+      status: 0,
+      operator: 3,
+      tokenName: 'Buld vase',
+      senderID: '0x850243759A435UX432B321',
+      receiverID: '0x850243759A435UX432B321',
+      amount: 1758.42,
+      transactionFee: 0
+    }
+  ]
+
 
   return (
     <Screen style={$root} preset="fixed">
@@ -19,9 +80,29 @@ export const HistoryScreen: FC<HistoryScreenProps> = observer(function HistorySc
 
       {/* Main content */}
       <View style={$bodyContainer}>
-        <Image style={$emptyHistoryImage} source={require("../../assets/images/emptyHistory.png")} resizeMode="contain"/>
-        <Text style={$emptyHistoryText} tx={"mainpageNavigator.history.emptyHistory"}/>
+        {/* <Image style={$emptyHistoryImage} source={require("../../assets/images/emptyHistory.png")} resizeMode="contain"/>
+        <Text style={$emptyHistoryText} tx={"mainpageNavigator.history.emptyHistory"}/> */}
+        <>
+          <Button 
+            style={$filterButton} 
+            tx={"common.button.filter"} 
+            textStyle={$buttonText} 
+            pressedStyle={$buttonPressed}
+            LeftAccessory={()=>(
+              <Icon style={$filterIcon} containerStyle={$filterIconContainer} icon="filter"/>
+            )}
+            onPress={()=>setIsFilterModalVisible(true)}
+          />
+          <ScrollView contentContainerStyle={$listContentContainer} style={$listContainer}>
+            {
+              data.map((value, index)=>(
+                <HistoryBox key={index} data={value}/>
+              ))
+            }
+          </ScrollView>
+        </>
       </View>
+      <FilterModal visibility={isFilterModalVisibile} setVisibility={setIsFilterModalVisible}/>
     </Screen>
   )
 })
@@ -65,4 +146,43 @@ const $emptyHistoryText: TextStyle = {
   textAlign: 'center',
   width: width*0.9,
   marginTop: height*0.1
+}
+
+const $filterButton: ViewStyle = {
+  width: '90%',
+  backgroundColor: "#838D92",
+  marginTop: 17,
+  borderRadius: 5
+}
+
+const $buttonText: TextStyle = {
+  color: "white",
+  fontWeight: "bold",
+  textAlignVertical: 'center',
+  lineHeight: 18
+}
+
+const $buttonPressed: ViewStyle = {
+  backgroundColor: "#838D92",
+  opacity: 0.7,
+}
+
+const $filterIconContainer: ViewStyle = {
+  position: 'absolute',
+  left: 10
+}
+
+const $filterIcon: ImageStyle = {
+  width: 19,
+  height: 19
+}
+
+const $listContentContainer: ViewStyle = {
+  alignItems: 'center',
+  gap: 12
+}
+
+const $listContainer: ViewStyle = {
+  marginVertical: 17, 
+  width: '90%'
 }
