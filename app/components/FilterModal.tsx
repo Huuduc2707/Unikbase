@@ -196,8 +196,8 @@ const $container: ViewStyle = {
   flex: 1,
   alignSelf: 'center',
   position: 'absolute',
-  top: height*0.15,
-  bottom: height*0.15
+  top: height*0.05,
+  bottom: height*0.05
 }
 
 const $form: ViewStyle = {
