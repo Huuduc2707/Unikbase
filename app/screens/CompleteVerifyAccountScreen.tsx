@@ -30,15 +30,15 @@ export const CompleteVerifyAccountScreen: FC<CompleteVerifyAccountScreenProps> =
               <Icon style={$arrowIcon} icon="trc"/>
             </View>
             <View style={$form}>
-              <Text style={$formName} text="Congratulations!"/> 
-              <Text style={$informText}>You've successfully verified your Unikbase account. Process now to fully enjoy our awesome features!</Text>
-              <Button style={$doneButton} text="DONE" textStyle={$doneText} pressedStyle={$buttonPressed} onPress={()=>navigation.navigate("Login")}/>
+              <Text style={$formName} tx={"common.formName.congratulations"}/> 
+              <Text style={$informText} tx={"completeVerificationScreen.completionInformText"}/>
+              <Button style={$doneButton} tx={"common.button.done"} textStyle={$doneText} pressedStyle={$buttonPressed} onPress={()=>navigation.navigate("Login")}/>
             </View>
             <View style={$iconContainer}>
               <Icon style={$arrowIcon} icon="blc"/>
               <Icon style={$arrowIcon} icon="brc"/>
             </View>
-            <Text style={$footerText} text="For lost email or forgotten email address. You can change and verify your details under Setting > Security & Privacy."/>
+            <Text style={$footerText} tx={"completeVerificationScreen.instructionText"}/>
           </View>
     </Screen>
   )
@@ -80,11 +80,11 @@ const $brandNameText: TextStyle = {
 const $formContainer: ViewStyle = {
   backgroundColor: 'white',
   marginTop: height*0.065,
-  height: height*0.73,
   width: width*1,
   justifyContent: 'flex-start',
   alignItems: 'center',
-  paddingTop: height*0.025
+  paddingTop: height*0.025,
+  paddingBottom: height*0.25
 }
 
 const $iconContainer: ViewStyle = {

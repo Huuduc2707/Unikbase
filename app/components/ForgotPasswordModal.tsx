@@ -29,12 +29,13 @@ export const ForgotPasswordModal = observer(function ForgotPasswordModal(props: 
   const navigation = useNavigation()
 
   function submitEmail(){
-    if(!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) setError("Error")
+    if(!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email
+      )) setError("Error")
     else setError("No error")
   }
 
   return (
-    <Modal style={$styles} isVisible={isVisible} coverScreen={false} onBackdropPress={()=>setIsVisible(false)}>
+    <Modal style={$styles} isVisible={isVisible} coverScreen={false} onBackdropPress={()=>setIsVisible(false)} backdropTransitionOutTiming={0}>
       <View style={$iconContainer}>
         <Icon style={$arrowIcon} icon="tlc"/>
         <Icon style={$arrowIcon} icon="trc"/>
@@ -42,18 +43,43 @@ export const ForgotPasswordModal = observer(function ForgotPasswordModal(props: 
       <View style={$form}>
         {error!=="No error"?
           <>
-            <Text style={$formName} text="Forgot your password?" />
-            <Text style={$informText} text="Enter your email address to reset your password. You may need to check your spam folder or unblock no-reply@unikbase.com"/>
-            <TextField containerStyle={$inputField} status={(error==="Error")?"error":null} placeholder="Email" value={email} onChangeText={(text)=>setEmail(text)}/>
-            <Text style={(error==="Error")?$errorText:$hideDisplay} text={(error==="Error")?"Invalid email.":null}/>
-            <Button style={$submitButton} text="SUBMIT" textStyle={$buttonText} pressedStyle={$buttonPressed} onPress={submitEmail}/>
+            <Text style={$formName} tx={"common.textAndLink.forgotPassword"} />
+            <Text style={$informText} tx={"forgotPasswordModal.instruction"}/>
+            <TextField 
+              inputWrapperStyle={$inputField} 
+              status={(error==="Error")?"error":null} 
+              placeholderTx={"common.inputPlaceholder.email"}
+              helperTx={(error==="Error")?"common.error.invalidEmail":null}
+              HelperTextProps={{style: $errorText}}
+              value={email} 
+              onChangeText={(text)=>setEmail(text)}
+            />
+            <Button 
+              style={$submitButton} 
+              tx={"common.button.submit"} 
+              textStyle={$buttonText} 
+              pressedStyle={$buttonPressed} 
+              onPress={submitEmail}
+            />
           </>
           :
           <>
-          <Text style={$formName} text="Hey there, just a heads up!" />
-          <Text style={$informText} text="If you proceed, your current wallet and account will be permanently removed. To recover them, you will need your username and password - Unikbase won't be able to assist you with this."/>
-          <Button style={$removeButton} text="REMOVE WALLET & PROCEED" textStyle={$buttonText} pressedStyle={$buttonPressed} onPress={()=>navigation.navigate("Login")}/>
-          <Button style={$cancelButton} text="CANCEL" textStyle={$buttonText} pressedStyle={$buttonPressed} onPress={()=>{setIsVisible(false); setError("")}}/>
+          <Text style={$formName} tx={"common.textAndLink.warning"} />
+          <Text style={$informText} tx={"forgotPasswordModal.warning"} />
+          <Button 
+            style={$removeButton} 
+            tx={"common.button.removeWalletAndProceed"} 
+            textStyle={$buttonText} 
+            pressedStyle={$buttonPressed} 
+            onPress={()=>navigation.navigate("Login")}
+          />
+          <Button 
+            style={$cancelButton} 
+            tx={"common.button.cancel"} 
+            textStyle={$buttonText} 
+            pressedStyle={$buttonPressed} 
+            onPress={()=>{setIsVisible(false); setError("")}}
+          />
           </>
       }
       </View>
@@ -138,13 +164,8 @@ const $buttonPressed: ViewStyle = {
 const $errorText: TextStyle = {
   fontSize: 14,
   color: 'red',
-  marginTop: 5,
   width: width*0.85,
   lineHeight: 14
-}
-
-const $hideDisplay: ViewStyle = {
-  display: 'none'
 }
 
 const $removeButton: ViewStyle = {

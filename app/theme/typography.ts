@@ -17,7 +17,11 @@ export const customFontsToLoad = {
   spaceGroteskRegular,
   spaceGroteskMedium,
   spaceGroteskSemiBold,
-  spaceGroteskBold
+  spaceGroteskBold,
+  pixelifySansBold: require("../../assets/fonts/PixelifySans-Bold.ttf"),
+  pixelifySansMedium: require("../../assets/fonts/PixelifySans-Medium.ttf"),
+  pixelifySansRegular: require("../../assets/fonts/PixelifySans-Regular.ttf"),
+  pixelifySansSemiBold: require("../../assets/fonts/PixelifySans-SemiBold.ttf")
 }
 
 const fonts = {
@@ -50,6 +54,12 @@ const fonts = {
   monospace: {
     // Android only font.
     normal: "monospace",
+  },
+  pixelifySans: {
+    bold: "pixelifySansBold",
+    medium: "pixelifySansMedium",
+    regular: "pixelifySansRegular",
+    semiBold: "pixelifySansSemiBold"
   }
 }
 

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { StyleProp, View, ViewStyle, Dimensions } from "react-native"
+import { StyleProp, View, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
 
 export interface LineProps {
@@ -24,9 +24,9 @@ export const Line = observer(function Line(props: LineProps) {
 
 
 
-const {width} = Dimensions.get('window')
+
 const $container: ViewStyle = {
-  width: width*0.33,
+  width: '100%',
   height: 1,
   borderWidth: 1,
   borderColor: 'white'

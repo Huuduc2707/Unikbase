@@ -4,10 +4,9 @@ import { observer } from "mobx-react-lite"
 import { Text } from "app/components/Text"
 import { Icon } from "./Icon"
 import { PhoneCodeModal } from "./PhoneCodeModal"
-import CountryFlag from "react-native-country-flag"
 
 export interface phoneCodeProps {
-  countryCode: string
+  flag: string
   dialCode: string
 }
 
@@ -31,7 +30,7 @@ export const PhoneCodePicker = observer(function PhoneCodePicker(props: PhoneCod
   return (
     <TouchableOpacity style={$styles} activeOpacity={0.7} onPress={()=>setIsVisible(!isVisible)}>
       <Icon style={$icon} icon="down"/>
-      <CountryFlag isoCode={selected.countryCode} size={20}/>
+      <Text style={$flag} text={selected.flag}/>
       <Text style={$text} text={selected.dialCode}/>
       <PhoneCodeModal state={isVisible} setState={setIsVisible} setSelected={setSelected}/>
     </TouchableOpacity>
@@ -54,6 +53,10 @@ const $container: ViewStyle = {
 const $text: TextStyle = {
   fontSize: 14 / fontScale,
   color: 'black'
+}
+
+const $flag: TextStyle = {
+  fontSize: 20 / fontScale
 }
 
 const $icon: ImageStyle = {

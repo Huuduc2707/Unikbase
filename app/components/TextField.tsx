@@ -252,7 +252,7 @@ const $inputStyle: TextStyle = {
   color: colors.text,
   fontSize: 16 / fontScale,
   height: height*0.045,
-  maxHeight: 50,
+  maxHeight: 150,
   // https://github.com/facebook/react-native/issues/21720#issuecomment-532642093
   paddingVertical: 0,
   paddingHorizontal: 0,

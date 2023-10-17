@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite"
 import { Text } from "app/components/Text"
 import { IconTypes, Icon } from "./Icon"
 import { useNavigation } from "@react-navigation/native"
+import { TxKeyPath } from "app/i18n"
 
 export interface SignInButtonProps {
   /**
@@ -11,7 +12,7 @@ export interface SignInButtonProps {
    */
   style?: StyleProp<ViewStyle>
   icon?: IconTypes
-  text?: string
+  tx?: TxKeyPath
   navigateTo: string
 }
 
@@ -19,7 +20,7 @@ export interface SignInButtonProps {
  * Describe your component here
  */
 export const SignInButton = observer(function SignInButton(props: SignInButtonProps) {
-  const { style, icon, text , navigateTo} = props
+  const { style, icon, tx , navigateTo} = props
   const $styles = [$container, style]
 
   const navigation = useNavigation()
@@ -27,7 +28,7 @@ export const SignInButton = observer(function SignInButton(props: SignInButtonPr
   return (
     <TouchableOpacity style={$styles} activeOpacity={0.7} onPress={()=>navigation.navigate(navigateTo)}>
       <Icon style={$logo} icon={icon} size={20/Dimensions.get('window').fontScale}/>
-      <Text style={$text}>{text}</Text>
+      <Text style={$text} tx={tx}/>
     </TouchableOpacity>
   )
 })

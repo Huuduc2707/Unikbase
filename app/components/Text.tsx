@@ -89,7 +89,7 @@ const $fontWeightStyles = Object.entries(typography.primary).reduce((acc, [weigh
 const $baseStyle: StyleProp<TextStyle> = [
   $sizeStyles.sm,
   $fontWeightStyles.normal,
-  { color: colors.text },
+  { color: colors.text, fontFamily:  typography.fonts.sansSerif.normal},
 ]
 
 const $presets = {
