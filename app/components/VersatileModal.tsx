@@ -6,6 +6,7 @@ import { Line } from "app/components/Line"
 import { Icon, IconTypes } from "app/components/Icon"
 import Modal from "react-native-modal"
 import { TxKeyPath } from "app/i18n"
+import { useNavigation } from "@react-navigation/native"
 
 interface Feature{
   icon: IconTypes
@@ -25,6 +26,8 @@ export interface VersatileModalProps {
  */
 export const VersatileModal = observer(function VersatileModal(props: VersatileModalProps) {
   const { visibility, setVisibility } = props
+  const navigation = useNavigation()
+
   const features: Feature[] = [
     {icon: "document", name: "mainpageNavigator.wallet.feature.document"},
     {icon: "transfer", name: "mainpageNavigator.wallet.feature.transfer"},
@@ -37,7 +40,7 @@ export const VersatileModal = observer(function VersatileModal(props: VersatileM
     {icon: "insurance", name: "mainpageNavigator.wallet.feature.insurance"},
     {icon: "report", name: "mainpageNavigator.wallet.feature.report"}
   ]
-
+  const destinationScreen: string[] = ["Document", "TransferDigitalTwin", "ShareTwinInfo", "Scan3D", "LinkNfcTag", "VerifyNfcTag"]
   return (
     <Modal isVisible={visibility} coverScreen={false} backdropTransitionOutTiming={0} onBackdropPress={()=>setVisibility(false)}>
       <View style={$container}>
@@ -50,7 +53,7 @@ export const VersatileModal = observer(function VersatileModal(props: VersatileM
             <View style={$featureContainer}>
               {
                 features.map((value, index)=>(
-                  <TouchableOpacity key={(index+1)*0.1} style={$featureBox} activeOpacity={0.7}>
+                  <TouchableOpacity key={(index+1)*0.1} style={$featureBox} activeOpacity={0.7} onPress={()=>navigation.navigate(destinationScreen[index])}>
                     <Icon style={$featureIcon} icon={value.icon}/>
                     <Text style={$featureText} tx={value.name}/>
                   </TouchableOpacity>

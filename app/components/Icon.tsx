@@ -155,9 +155,17 @@ export const iconRegistry = {
   pencil: require("../../assets/icons/pencil.png"),
   download2: require("../../assets/icons/download2.png"),
   trash: require("../../assets/icons/trash.png"),
-  roundX2: require("../../assets/icons/roundX2.png")
+  roundX2: require("../../assets/icons/roundX2.png"),
+  public: require("../../assets/icons/public.png"),
+  restricted: require("../../assets/icons/restricted.png"),
+  private: require("../../assets/icons/private.png"),
+  download3: require("../../assets/icons/download3.png"),
+  gmail: require("../../assets/icons/gmail.png"),
+  whatsapp: require("../../assets/icons/whatsapp.png"),
+  instagram: require("../../assets/icons/instagram.png"),
+  twitter: require("../../assets/icons/twitter.png"),
 }
 
-const $imageStyle: ImageStyle = {  
+const $imageStyle: ImageStyle = {
   resizeMode: "contain",
 }

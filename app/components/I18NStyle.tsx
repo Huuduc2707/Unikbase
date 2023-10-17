@@ -57,7 +57,7 @@ export const I18NStyle = observer(function I18NStyle(props: I18NStyleProps) {
     {
       arr.map((value)=>{
         if(/(\[missing )*{{.*?}}( value\])*/g.test(value)) return <Text style={styleExtractor(value)}>{keyExtractor(value)}</Text>
-        else return <Text>{value}</Text>
+        else return <Text style={$styles}>{value}</Text>
       })
     }
    </Text>

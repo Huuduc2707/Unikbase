@@ -111,14 +111,14 @@ const $confirmButton: ViewStyle = {
 
 const $cancelButton: ViewStyle = {
   width: width*0.39,
-  backgroundColor: "#041C25",
-  opacity:0.71
+  backgroundColor: "#041C25B5"
 }
 
 const $buttonText: TextStyle = {
   color: "white",
   fontWeight: "bold",
-  textAlignVertical: 'center'
+  textAlignVertical: 'center',
+  lineHeight: 18
 }
 
 const $confirmButtonPressed: ViewStyle = {
@@ -127,6 +127,6 @@ const $confirmButtonPressed: ViewStyle = {
 }
 
 const $cancelButtonPressed: ViewStyle = {
-  backgroundColor: '#041C25',
+  backgroundColor: '#041C25B5',
   opacity: 0.7
 }

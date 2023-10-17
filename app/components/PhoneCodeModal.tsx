@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import { StyleProp, TextStyle, ViewStyle, TouchableOpacity, FlatList, Dimensions } from "react-native"
+import { StyleProp, TextStyle, ViewStyle, TouchableOpacity, FlatList, Dimensions, View, ImageStyle } from "react-native"
 import { observer } from "mobx-react-lite"
 import { Text } from "app/components/Text"
 import { TextField } from "app/components/TextField"
@@ -32,20 +32,25 @@ export const PhoneCodeModal = observer(function PhoneCodeModal(props: PhoneCodeM
   }
 
   async function ListFilter(text: string){
-    const newItemList = await countryCode.filter((item)=>item.name.toLowerCase().includes(text.toLowerCase()))
+    const newItemList = await (/^[0-9]*$/.test(text)? countryCode.filter((item)=>item.dialCode.includes(text)) : countryCode.filter((item)=>item.name.toLowerCase().includes(text.toLowerCase())))
     if(newItemList.length === 0) setItemList(["No match found"])
     else setItemList(newItemList)
   }
   return (
-    <Modal style={$styles} isVisible={state} animationIn={"slideInUp"} onBackdropPress={()=>setState(false)} backdropTransitionOutTiming={0}>
-      <TextField
-        inputWrapperStyle={$searchBar}
-        placeholderTx={"common.inputPlaceholder.countryName"}
-        onChangeText={(text)=>ListFilter(text)}
-        LeftAccessory={()=>(
-          <Icon containerStyle={$searchIcon} icon="search" size={20}/>
-        )}
-      />
+    <Modal style={$styles} isVisible={state} backdropTransitionOutTiming={0}>
+      <View style={$headerContainer}>
+        <TextField
+          inputWrapperStyle={$searchBar}
+          placeholderTx={"common.inputPlaceholder.countryName"}
+          onChangeText={(text)=>ListFilter(text)}
+          LeftAccessory={()=>(
+            <Icon containerStyle={$searchIcon} icon="search" size={20}/>
+          )}
+        />
+        <TouchableOpacity activeOpacity={0.7} onPress={()=>setState(false)}>
+          <Icon style={$closeIcon} icon="x"/>
+        </TouchableOpacity>
+      </View>
       <FlatList
         style={$flatList}
         keyExtractor={(item)=> item.countryCode}
@@ -75,7 +80,9 @@ const $container: ViewStyle = {
   borderColor: 'black',
   backgroundColor: 'white',
   opacity: 0.9,
-  width: '85%'
+  margin: 0,
+  width: '100%',
+  height: '100%'
 }
 
 const $text: TextStyle = {
@@ -103,6 +110,15 @@ const $phoneCodeContainer: ViewStyle = {
   paddingVertical: 10
 }
 
+const $headerContainer: ViewStyle = {
+  marginTop: 20,
+  marginBottom: 10,
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingHorizontal: 10
+}
+
 const $searchIcon: ViewStyle = {
   justifyContent: 'center',
   alignItems: 'center',
@@ -112,8 +128,10 @@ const $searchIcon: ViewStyle = {
 }
 
 const $searchBar: ViewStyle = {
-  marginTop: 20,
-  width: '90%',
-  alignSelf: 'center',
-  marginBottom: 10
+  width: 260
+}
+
+const $closeIcon: ImageStyle = {
+  width: 30,
+  height: 30
 }

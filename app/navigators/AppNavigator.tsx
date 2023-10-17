@@ -59,6 +59,13 @@ export type AppStackParamList = {
 	Gallery: undefined
 	Specification: undefined
 	Object: undefined
+	Scan3D: undefined
+	TransferDigitalTwin: undefined
+	ShareTwinInfo: undefined
+	LinkNfcTag: undefined
+	VerifyNfcTag: undefined
+	NfcLink: undefined
+	Scanning: undefined
 	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -106,7 +113,14 @@ const AppStack = observer(function AppStack() {
 		<Stack.Screen name="Gallery" component={Screens.GalleryScreen} />
 		<Stack.Screen name="Specification" component={Screens.SpecificationScreen} />
 		<Stack.Screen name="Object" component={Screens.ObjectScreen} />
-		{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
+		<Stack.Screen name="Scan3D" component={Screens.Scan3DScreen} />
+		<Stack.Screen name="TransferDigitalTwin" component={Screens.TransferDigitalTwinScreen} />
+		<Stack.Screen name="ShareTwinInfo" component={Screens.ShareTwinInfoScreen} />
+		<Stack.Screen name="LinkNfcTag" component={Screens.LinkNfcTagScreen} />
+		<Stack.Screen name="VerifyNfcTag" component={Screens.VerifyNfcTagScreen} />
+		<Stack.Screen name="NfcLink" component={Screens.NfcLinkScreen} />
+			<Stack.Screen name="Scanning" component={Screens.ScanningScreen} />
+			{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )
 })

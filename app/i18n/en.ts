@@ -1,42 +1,58 @@
 const en = {
   common: {
     button: {
-    createAccount: "CREATE ACCOUNT",
-    continue: "CONTINUE",
-    emailSignIn: "Sign in with Email",
-    phoneNumberSignIn: "Sign in with Phone Number",
-    googleSignIn: "Continue with Google",
-    facebookSignIn: "Continue with Facebook",
-    verify: "VERIFY",
-    done: "DONE",
-    submit: "SUBMIT",
-    removeWalletAndProceed: "REMOVE WALLET AND PROCEED",
-    cancel: "CANCEL",
-    createDigitalTwin: "CREATE DIGITAL TWIN",
-    clearAll: "ClearAll",
-    apply: "APPLY",
-    confirm: "CONFIRM",
-    deleteAccount: "DELETE ACCOUNT",
-    save: "SAVE",
-    changePassword: "CHANGE PASSWORD",
-    filter: "FILTERS",
-    goToDigitalTwin: "GO TO DIGITAL TWIN",
-    change: "Change >",
-    addPhoto: "Add Photos",
-    deletePhoto: "Delete this photo",
-    scanAnother: "SCAN ANOTHER NFC TAG",
-    cancel2: "Cancel",
-    addMoreDocument: "ADD MORE DOCUMENT",
-    uploadDocument: "UPLOAD DOCUMENT"
-   },
-   error: {
+      createAccount: "CREATE ACCOUNT",
+      continue: "CONTINUE",
+      emailSignIn: "Sign in with Email",
+      phoneNumberSignIn: "Sign in with Phone Number",
+      googleSignIn: "Continue with Google",
+      facebookSignIn: "Continue with Facebook",
+      verify: "VERIFY",
+      done: "DONE",
+      submit: "SUBMIT",
+      removeWalletAndProceed: "REMOVE WALLET AND PROCEED",
+      cancel: "CANCEL",
+      createDigitalTwin: "CREATE DIGITAL TWIN",
+      clearAll: "ClearAll",
+      apply: "APPLY",
+      confirm: "CONFIRM",
+      deleteAccount: "DELETE ACCOUNT",
+      save: "SAVE",
+      changePassword: "CHANGE PASSWORD",
+      filter: "FILTERS",
+      goToDigitalTwin: "GO TO DIGITAL TWIN",
+      change: "Change >",
+      addPhoto: "Add Photos",
+      deletePhoto: "Delete this photo",
+      scanAnother: "SCAN ANOTHER NFC TAG",
+      cancel2: "Cancel",
+      addMoreDocument: "ADD MORE DOCUMENT",
+      uploadDocument: "UPLOAD DOCUMENT",
+      startTutorial: "Start Tutorial",
+      scanObject3D: "3D SCAN OBJECT",
+      selectImageFor3DScan: "SELECT IMAGE FOR 3D SCAN",
+      upload3DScanFromAlbum: "UPLOAD 3D SCAN FROM ALBUM",
+      saveConfig: "SAVE CONFIGURATION",
+      sharePublicInfo: "SHARE PUBLIC INFO",
+      shareRestrictedInfo: "SHARE RESTRICTED INFO",
+      transfer: "TRANSFER",
+      tokenDocument: "TOKEN DOCUMENTS",
+      changeTokenData: "Change Token Data ->",
+      share: "SHARE",
+      startLinkingProcess: "START LINKING PROCESS",
+      addMoreNFCTagImage: "ADD MORE NFC TAG IMAGE",
+      uploadImage: "UPLOAD IMAGE",
+    },
+    error: {
       invalidUsername: "Your username is invalid.",
       duplicatedUsername: "Username is already taken. Please try again.",
       invalidEmail: "Your email address is invalid.",
       duplicatedEmail: "This email already in use. Please enter another email.",
       invalidPhoneNumber: "Your phone number is invalid.",
-      duplicatedPhoneNumber: "This phone number is already in use. Please enter another phone number.",
-      invalidPassword: "Kindly ensure that your password consists of at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number.",
+      duplicatedPhoneNumber:
+        "This phone number is already in use. Please enter another phone number.",
+      invalidPassword:
+        "Kindly ensure that your password consists of at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number.",
       mismatchConfirmPassword: "Password fields must match.",
       uncheckedCheckbox: "Please read and accept our policies to continue.",
       incorrectEmailOrPassword: "Incorrect email or password.",
@@ -46,11 +62,12 @@ const en = {
       noResultFound: "No result matches the given keyword.",
       incorrectPassword: "Incorrect password.",
       invalidNewPassword: "Invalid new password.",
-      noDocument: "You must have at least 1 document"
+      noDocument: "You must have at least 1 document",
+      noTagImage: "You must have at least 1 tag image",
     },
     success: {
       verifyEmailSuccess: "Verify email success!",
-      verifyPhoneNumberSuccess: "Verify phone number success!"
+      verifyPhoneNumberSuccess: "Verify phone number success!",
     },
     inputPlaceholder: {
       username: "Username",
@@ -58,12 +75,12 @@ const en = {
       phoneNumber: "Phone number",
       password: "Password",
       confirmPassword: "Confirm Password",
-      countryName: "Country name",
+      countryName: "Country name or Phone code",
       search: "Search",
       createAt: "Created At",
       operator: "Operator",
       choosePhoto: "Choose Photo",
-      downloadImage: "Download Image"
+      downloadImage: "Download Image",
     },
     textAndLink: {
       privacyPolicies: "Privacy Policies",
@@ -74,11 +91,31 @@ const en = {
       createAccountQuestion: "New to Unikbase?",
       createAccount: "Create an account",
       welcomeText: "Welcome to Unikbase!",
-      informEmailCodeText: "We have sent a 6-character code to {{email}}. The code expires shortly, so please enter it soon.",
-      informPhoneNumberCodeText: "We have sent a 6-character code to {{phoneNumber}}. The code expires shortly, so please enter it soon.",
+      informEmailCodeText:
+        "We have sent a 6-character code to {{email}}. The code expires shortly, so please enter it soon.",
+      informPhoneNumberCodeText:
+        "We have sent a 6-character code to {{phoneNumber}}. The code expires shortly, so please enter it soon.",
       checkSpamFolder: "Can't find your code? Check your spam folder!",
       warning: "Hey there, just a heads up!",
-      completedCreatingDigitalTwin: "You've successfully created a Digital Twin for {{name}}."
+      completedCreatingDigitalTwin: "You've successfully created a Digital Twin for {{name}}.",
+      scan3D:
+        "This is where you can generate your 3D scans with ease. Simply take photographs all around and over the object. For initial use, kindly refer to the tutorial.",
+      verifyNFCTag:
+        "Please bring your device near the NFC tag on the object. Refer to the images below to locate the NFC Tag on your object.",
+      transferInstruction:
+        "Enter the email or wallet address of the recipient to whom you wish to transfer your digital twin.",
+      transferWarning:
+        "Please note that the transfer of your digital twin is permanent. We advise you to transfer it only to someone to whom you have also transferred the ownership of the associated object.",
+      transferTimeoutWarning: "The recipient will have {{time}} to accept the transfer.",
+      transferInform:
+        "During the transfer of the digital twin, uploading and deleting of documents will not be accessible.",
+      tokenDocumentInform:
+        "The recipient will receive all the documents and information contained within the token.",
+      tokenDocumentInform2:
+        "You have the ability to modify the documents included in the token here.",
+      shareTokenLink: "This link will open a page showing all the token's public information.",
+      uploadTagImageInstruction:
+        "Please upload an image displaying the tag's location on the object.",
     },
     formName: {
       createAccount: "Create Account",
@@ -90,7 +127,8 @@ const en = {
       filter: "Filters",
       confirmDeletion: "Confirm deletion?",
       newDocumentName: "Enter New Document Name",
-      uploadDocument: "Upload New Document"
+      uploadDocument: "Upload New Document",
+      uploadTagImage: "Upload Tag Image",
     },
     formLabel: {
       email: "Email",
@@ -129,8 +167,10 @@ const en = {
       invoice: "Invoice",
       caption: "Caption",
       selectDocument: "Select Document",
-      selectCategory: "Please select a category"
-    }
+      selectCategory: "Please select a category",
+      emailWalletAddress: "Email/Wallet Address",
+      nfcTagImage: "NFCTag Image",
+    },
   },
   // welcomeScreen: {
   //   postscript:
@@ -152,26 +192,31 @@ const en = {
   //   },
   // },
   loginScreen: {
-   informText: "Create your account or sign into an existing account to build and manage your digital twins."
+    informText:
+      "Create your account or sign into an existing account to build and manage your digital twins.",
   },
   registerScreen: {
     accept: "Accept",
     and: "and",
   },
   completeVerificationScreen: {
-    completionInformText: "You've successfully verified your Unikbase account. Process now to fully enjoy our awesome features!",
-    instructionText: "For lost email or forgotten email address. You can change and verify your details under Setting > Security & Privacy."
+    completionInformText:
+      "You've successfully verified your Unikbase account. Process now to fully enjoy our awesome features!",
+    instructionText:
+      "For lost email or forgotten email address. You can change and verify your details under Setting > Security & Privacy.",
   },
   forgotPasswordModal: {
-    instruction: "Enter your email address to reset your password. You may need to check your spam folder or unblock no-reply@unikbase.com",
-    warning: "If you proceed, your current wallet and account will be permanently removed. To recover them, you will need your username and password - Unikbase won't be able to assist you with this."
+    instruction:
+      "Enter your email address to reset your password. You may need to check your spam folder or unblock no-reply@unikbase.com",
+    warning:
+      "If you proceed, your current wallet and account will be permanently removed. To recover them, you will need your username and password - Unikbase won't be able to assist you with this.",
   },
   mainpageNavigator: {
     tabLabel: {
       wallet: "Wallet",
       history: "History",
       profile: "Profile",
-      more: "More"
+      more: "More",
     },
     tabName: {
       tokenHistory: "Token History",
@@ -195,7 +240,12 @@ const en = {
       specification: "Specifications",
       coverImage: "Cover Image",
       galleryImage: "Gallery Images",
-      chooseCoverImage: "Choose one that best highlights your object"
+      chooseCoverImage: "Choose one that best highlights your object",
+      linkNFCTag: "Link NFC Tag",
+      verifyNFCTag: "Verify NFC Tag",
+      transferDigitalTwin: "Transfer Digital Twin",
+      sharingConfig: "Sharing Configuration",
+      nfcLink: "NFC Link",
     },
     wallet: {
       copied: "Copied to clipboard !",
@@ -205,7 +255,7 @@ const en = {
       checkboxFieldTitle: {
         digitalTwinStatus: "DigitalTwin Status",
         tokenStatus: "Token Status",
-        tokenOperatorStatus: "Token Operator Status"
+        tokenOperatorStatus: "Token Operator Status",
       },
       checkBoxValue: {
         active: "Active",
@@ -215,7 +265,7 @@ const en = {
         shared: "Shared",
         public: "Public",
         owned: "Owned",
-        managed: "Managed"
+        managed: "Managed",
       },
       operatorValue: {
         topup: "Topup",
@@ -226,7 +276,7 @@ const en = {
         updateToken: "Update token",
         create3DScan: "Create 3D scan",
         operatorChange: "Operator change",
-        bridgeEthereum: "Bridge ethereum"
+        bridgeEthereum: "Bridge ethereum",
       },
       feature: {
         document: "Documents",
@@ -236,7 +286,7 @@ const en = {
         link: "Link NFCTag",
         verify: "Verify NFCTag",
         insurance: "Buy Insurance",
-        report: "Incident Report"
+        report: "Incident Report",
       },
       documentCategory: {
         gallery3D: "3D Gallery",
@@ -245,21 +295,35 @@ const en = {
         gallery: "Gallery",
         invoice: "Invoice",
         markProof: "Mark Proofs",
-        otherDocument: "Other Documents"
-      }
+        otherDocument: "Other Documents",
+      },
+      sharingConfig: {
+        private: "Private",
+        restricted: "Restricted",
+        public: "Public",
+        selectAll: "SelectAll",
+        price: "Price",
+        creationDate: "Creation Date",
+        dimension: "Dimensions",
+        coverPhotoAndName: "Cover Photo and Name",
+        gallery: "Gallery",
+        gallery3D: "3D Gallery",
+        digitalTwinOrigin: "Digital Twin Origin",
+      },
     },
     history: {
-      emptyHistory: "Here is where you will find your transaction history, you haven't made any transactions yet.",
+      emptyHistory:
+        "Here is where you will find your transaction history, you haven't made any transactions yet.",
       tokenHistory: {
         status: {
           confirmed: "Confirmed",
-          refused: "Refused"
+          refused: "Refused",
         },
         operator: {
           tokenCreation: "TOKEN CREATION",
           tokenReceipt: "TOKEN RECEIPT",
           tokenAccepted: "TOKEN ACCEPTED",
-          documentUploaded: "DOCUMENT UPLOADED"
+          documentUploaded: "DOCUMENT UPLOADED",
         },
         checkboxValue: {
           tokenCreation: "Token creation",
@@ -273,7 +337,7 @@ const en = {
           informationAdded: "Information added",
           informationDeleted: "Information deleted",
           informationModified: "Information modified",
-          operatorChange: "Operator change"
+          operatorChange: "Operator change",
         },
         detailHeader: {
           digitalTwinName: "Digital Twin Name",
@@ -283,53 +347,66 @@ const en = {
           to: "To",
           amount: "Amount",
           transactionFee: "Transaction fee",
-          totalAmount: "Total amount"
-        }
-      }
+          totalAmount: "Total amount",
+        },
+      },
     },
     profile: {
       headerBarLabel: {
         details: "Details",
         password: "Password",
         language: "Language",
-        account: "Account"
+        account: "Account",
       },
       edit: "edit",
       detail: {
         profileDetail: "Profile Details",
-        contactDetail: "Contact Details"
+        contactDetail: "Contact Details",
       },
       changePassword: {
         changePassword: "Change Password",
-        informText: "Kindly ensure that your password consists of at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number."
+        informText:
+          "Kindly ensure that your password consists of at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number.",
       },
       language: {
         languageSetting: "Language Settings",
         unit: "Units",
         languageValue: {
           english: "English",
-          french: "French"
+          french: "French",
         },
         unitValue: {
           metric: "Metric",
-          imperial: "Imperial"
-        }
+          imperial: "Imperial",
+        },
       },
       account: {
         deleteAccount: "Delete Account",
-        informText: "Deleting your account will permanently remove all of your information from our servers."
-      }
+        informText:
+          "Deleting your account will permanently remove all of your information from our servers.",
+      },
     },
     more: {
       logout: "Are you sure you want to logout?",
       scanNFCTag: {
         readyToScan: "Ready to Scan",
         scanInform: "Hold your device near the NFC tag on the object to scan.",
-        unknownNFCTag: "Unknown NFC Tag"
+        unknownNFCTag: "Unknown NFC Tag",
+        scanComplete: "Scan Complete",
+        tagDetected: "The following NFC tag has been detected",
+        uniqueID: "Unique Id",
+        linkNow: "You can now link it to your digital twin:",
+        scanInstruction:
+          "Please leave your device close to the NFC tag throughout the linking process.",
+        scanReminder:
+          "Once the linking process is complete, kindly capture an image displaying the tag's location on the object.",
+        matchScan: "The scanned NFC Tag corresponds to your digital twin.",
+        mismatchScan: "The scanned NFC Tag does not match your digital twin.",
       },
       FAQ: {
         frequentlyAskedQuestion: "Frequently Asked Questions",
-        introText: "A short introdction to digital twins: everything you need to know when signing up for Unikbase solution. If you cannot find the answer you are looking for, please contact our support.",
+        introText:
+          "A short introdction to digital twins: everything you need to know when signing up for Unikbase solution. If you cannot find the answer you are looking for, please contact our support.",
         question: {
           question1: "What is a DigitalTwin?",
           question2: "What are some important things to know about digital twins?",
@@ -339,27 +416,33 @@ const en = {
           question6: "How are my digital twin and my real-life collectible connected?",
           question7: "Can I use my digital twin to insure my valuable, or to report it stolen?",
           question8: "What are the environmental costs of creating a digital twin?",
-          question9: "What is a Blockchain?"
+          question9: "What is a Blockchain?",
         },
         answer: {
-          shortAnswer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu sem convallis, aliquet nisi quis, semper risus. Morbi sed magna augue.",
-          mediumAnswer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu sem convallis, aliquet nisi quis, semper risus. Morbi sed magna augue. In finibus tortor nec consequat ultrices. Mauris dapibus condimentum est et sagittis. Morbi erat augue, fringilla vitae interdum ut, congue eu augue. Phasellus lacinia mollis dui, id porta nulla. Maecenas vitae molestie nibh. Morbi id finibus massa. Nullam non turpis venenatis, placerat lorem at, tristique erat. Aliquam eu magna vel orci varius mattis. Donec varius nulla eget turpis maximus pretium. Curabitur a malesuada turpis, ac posuere nibh. Pellentesque porta justo vitae turpis laoreet ullamcorper. In hac habitasse platea dictumst. Fusce sit amet erat consectetur, aliquet ipsum vel, aliquam neque. Ut ut augue justo. Suspendisse potenti. Vestibulum blandit, mauris non auctor mattis, felis mi tempor massa, suscipit scelerisque elit diam a neque.",
-          longAnswer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu sem convallis, aliquet nisi quis, semper risus. Morbi sed magna augue. In finibus tortor nec consequat ultrices. Mauris dapibus condimentum est et sagittis. Morbi erat augue, fringilla vitae interdum ut, congue eu augue. Phasellus lacinia mollis dui, id porta nulla. Maecenas vitae molestie nibh. Morbi id finibus massa. Nullam non turpis venenatis, placerat lorem at, tristique erat. Aliquam eu magna vel orci varius mattis. Donec varius nulla eget turpis maximus pretium. Curabitur a malesuada turpis, ac posuere nibh. Pellentesque porta justo vitae turpis laoreet ullamcorper. In hac habitasse platea dictumst. Fusce sit amet erat consectetur, aliquet ipsum vel, aliquam neque. Ut ut augue justo. Suspendisse potenti. Vestibulum blandit, mauris non auctor mattis, felis mi tempor massa, suscipit scelerisque elit diam a neque. Sed tempus nulla ac lectus gravida, sit amet consectetur sem cursus. Nullam dolor lorem, ultricies vitae urna vitae, vehicula aliquam sapien. Cras semper enim in lectus dignissim varius. Cras rutrum arcu ac libero vehicula accumsan. Aenean feugiat nisl nec aliquam dictum. Vivamus dignissim, mi quis ultricies gravida, enim ante pretium nunc, vitae maximus eros nisi sodales purus."
-        }, 
+          shortAnswer:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu sem convallis, aliquet nisi quis, semper risus. Morbi sed magna augue.",
+          mediumAnswer:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu sem convallis, aliquet nisi quis, semper risus. Morbi sed magna augue. In finibus tortor nec consequat ultrices. Mauris dapibus condimentum est et sagittis. Morbi erat augue, fringilla vitae interdum ut, congue eu augue. Phasellus lacinia mollis dui, id porta nulla. Maecenas vitae molestie nibh. Morbi id finibus massa. Nullam non turpis venenatis, placerat lorem at, tristique erat. Aliquam eu magna vel orci varius mattis. Donec varius nulla eget turpis maximus pretium. Curabitur a malesuada turpis, ac posuere nibh. Pellentesque porta justo vitae turpis laoreet ullamcorper. In hac habitasse platea dictumst. Fusce sit amet erat consectetur, aliquet ipsum vel, aliquam neque. Ut ut augue justo. Suspendisse potenti. Vestibulum blandit, mauris non auctor mattis, felis mi tempor massa, suscipit scelerisque elit diam a neque.",
+          longAnswer:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu sem convallis, aliquet nisi quis, semper risus. Morbi sed magna augue. In finibus tortor nec consequat ultrices. Mauris dapibus condimentum est et sagittis. Morbi erat augue, fringilla vitae interdum ut, congue eu augue. Phasellus lacinia mollis dui, id porta nulla. Maecenas vitae molestie nibh. Morbi id finibus massa. Nullam non turpis venenatis, placerat lorem at, tristique erat. Aliquam eu magna vel orci varius mattis. Donec varius nulla eget turpis maximus pretium. Curabitur a malesuada turpis, ac posuere nibh. Pellentesque porta justo vitae turpis laoreet ullamcorper. In hac habitasse platea dictumst. Fusce sit amet erat consectetur, aliquet ipsum vel, aliquam neque. Ut ut augue justo. Suspendisse potenti. Vestibulum blandit, mauris non auctor mattis, felis mi tempor massa, suscipit scelerisque elit diam a neque. Sed tempus nulla ac lectus gravida, sit amet consectetur sem cursus. Nullam dolor lorem, ultricies vitae urna vitae, vehicula aliquam sapien. Cras semper enim in lectus dignissim varius. Cras rutrum arcu ac libero vehicula accumsan. Aenean feugiat nisl nec aliquam dictum. Vivamus dignissim, mi quis ultricies gravida, enim ante pretium nunc, vitae maximus eros nisi sodales purus.",
+        },
       },
       privacyAndPolicy: {
-        intro: "We at UNIKBASE are committed to protecting your privacy. This Privacy Policy applies to both our Website and our Subscription Service (the Subscription Service). This Privacy Policy governs our data collection, processing and usage practices. It also describes your choices regarding use, access and correction of your personal information. If you do not agree with the data practices described in this Privacy Policy, you should not use the Website or the Subscription Service. We encourage you to review this Privacy Policy periodically. If you have any question about this Privacy Policy or our treatment of the information you provide us, please write to us by email at hello@unikbase.com or by mail to UNIKBASE, 320 RUE SAINT HONORE 75001 PARIS 1, RCS Paris 922 272 794, Attn: Privacy.",
+        intro:
+          "We at UNIKBASE are committed to protecting your privacy. This Privacy Policy applies to both our Website and our Subscription Service (the Subscription Service). This Privacy Policy governs our data collection, processing and usage practices. It also describes your choices regarding use, access and correction of your personal information. If you do not agree with the data practices described in this Privacy Policy, you should not use the Website or the Subscription Service. We encourage you to review this Privacy Policy periodically. If you have any question about this Privacy Policy or our treatment of the information you provide us, please write to us by email at hello@unikbase.com or by mail to UNIKBASE, 320 RUE SAINT HONORE 75001 PARIS 1, RCS Paris 922 272 794, Attn: Privacy.",
         policyHeader: {
           header1: "USE OF THE SUBSCRIPTION SERVICE",
-          header2: "INFORMATION WE COLLECT"
+          header2: "INFORMATION WE COLLECT",
         },
         policySubHeader: {
-          subHeader1: "When you visit our website"
+          subHeader1: "When you visit our website",
         },
         policyContent: {
-          content1: "The UNIKBASE Subscription Service allows us to create and share marketing, sales and customer service content. The Subscription Service can also be used to help organize sales data about a company's sales pipeline (e.g., leads, customers, token deals, etc.). The information added to the Subscription Service, either by site visitors providing their contact information or when a Subscription Service user adds the information, is stored and managed on our service providers' servers. The information is then used to contact visitors about their in the company's goods and interact with the company. Information that we collect and manage using the Subscription Service for our own marketing belongs to us and is used, disclosed and protected according to this Privacy Policy.",
-          content2: "You are free to explore the Website without providing any Personal Information about yourself. When you visit the Website or register for the Subscription Service, we request that you provide Personal Information about yourself, and we collect Navigational information."
-        }
+          content1:
+            "The UNIKBASE Subscription Service allows us to create and share marketing, sales and customer service content. The Subscription Service can also be used to help organize sales data about a company's sales pipeline (e.g., leads, customers, token deals, etc.). The information added to the Subscription Service, either by site visitors providing their contact information or when a Subscription Service user adds the information, is stored and managed on our service providers' servers. The information is then used to contact visitors about their in the company's goods and interact with the company. Information that we collect and manage using the Subscription Service for our own marketing belongs to us and is used, disclosed and protected according to this Privacy Policy.",
+          content2:
+            "You are free to explore the Website without providing any Personal Information about yourself. When you visit the Website or register for the Subscription Service, we request that you provide Personal Information about yourself, and we collect Navigational information.",
+        },
       },
       termAndCondition: {
         termOfUse: "Terms of use",
@@ -367,17 +450,21 @@ const en = {
           header1: "TERMS OF USE",
           header2: "LEGAL NOTICE",
           header3: "COPYRIGHT, TRADEMARKS AND OTHER INTELLECTUAL PROPERTY RIGHTS",
-          header4: "WARRANTY AND LIABILITY EXCLUSIONS"
+          header4: "WARRANTY AND LIABILITY EXCLUSIONS",
         },
         content: {
-          content1: "The purpose of these Terms of Use is to define the terms and conditions of access and use ofthe site https://www.unikbase.com (hereinafter the \"Site\").The use of the Site is subject to compliance with these Terms of Use, which all users acknowledge that they accept unreservedly by the mere fact of accessing the said Site. Any user who does not wish to be bound by these Terms of Use must immediately renounce remaining on the Site and immediately cease using it.",
-          content2: "The Site is published by Unikbase, a company with a capital of 350,000 euros and whose registered office is located at 320 RUE SAINT HONORE 75001 PARIS 1, RCS 922 272 794, which can be reached at hello@unikbase.com (hereinafter \"UNIKBASE\"). The Site is hosted by MANATY whose registered office is located at xxx and can be reached at cotact@manaty.com",
-          content3: "This Site and its contents are protected by copyright and/or other intellectual property rights which are the property of UNIKBASE or third parties.The reproduction and use of the elements of this Site (and any information incorporated therein such as, without limitation, articles, graphic images, photographs, diagrams, video recordings...) are authorised provided that :-this reproduction and use are strictly for information, non-commercial purposes within your organisation to enable you to get to know UNIKBASE better; and,- all mentions of UNIKBASE and in particular copyright notices appear on any reproduction; and,-the elements and information are not modified in whole or in part and in any way what soeeer; and- any other right of reproduction and/or use is expressly prohibited. In addition, some of the names mentioned may be protected by trademarks that are the property of UNIKBASE or third parties without necessarily mentioning this protection.",
-          content4: "The elements of this Site are provided for general information purposes only and cannot be used as a basis for any transaction. All or any of the information published on this Site is provided \"as is\"without warranty of."
-        }
-      }
-    }
-  }
+          content1:
+            'The purpose of these Terms of Use is to define the terms and conditions of access and use ofthe site https://www.unikbase.com (hereinafter the "Site").The use of the Site is subject to compliance with these Terms of Use, which all users acknowledge that they accept unreservedly by the mere fact of accessing the said Site. Any user who does not wish to be bound by these Terms of Use must immediately renounce remaining on the Site and immediately cease using it.',
+          content2:
+            'The Site is published by Unikbase, a company with a capital of 350,000 euros and whose registered office is located at 320 RUE SAINT HONORE 75001 PARIS 1, RCS 922 272 794, which can be reached at hello@unikbase.com (hereinafter "UNIKBASE"). The Site is hosted by MANATY whose registered office is located at xxx and can be reached at cotact@manaty.com',
+          content3:
+            "This Site and its contents are protected by copyright and/or other intellectual property rights which are the property of UNIKBASE or third parties.The reproduction and use of the elements of this Site (and any information incorporated therein such as, without limitation, articles, graphic images, photographs, diagrams, video recordings...) are authorised provided that :-this reproduction and use are strictly for information, non-commercial purposes within your organisation to enable you to get to know UNIKBASE better; and,- all mentions of UNIKBASE and in particular copyright notices appear on any reproduction; and,-the elements and information are not modified in whole or in part and in any way what soeeer; and- any other right of reproduction and/or use is expressly prohibited. In addition, some of the names mentioned may be protected by trademarks that are the property of UNIKBASE or third parties without necessarily mentioning this protection.",
+          content4:
+            'The elements of this Site are provided for general information purposes only and cannot be used as a basis for any transaction. All or any of the information published on this Site is provided "as is"without warranty of.',
+        },
+      },
+    },
+  },
 }
 
 export default en
